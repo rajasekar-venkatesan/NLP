@@ -1,0 +1,3441 @@
+﻿
+
+Chapter 1
+Introduction
+      Machine learning is a type of artificial intelligence that enables computing machines to learn new knowledge from data without explicit programming.The machine learning tasks can be grouped into several categories such as classification,regression,clustering,dimensionality reduction etc.Classification is a problem of identifying which of the target categories a data sample belongs to.
+1.1 Classification
+Definition 1.1: Classification in machine learning is defined as “Given a set of training examples composed of pairs {xi,yi},find a function f(x) that maps each attribute vector xi to its associated class yi,i 
+= 1,2,….,n,where n is the total number of training samples” [1].
+      This type of classification is the most common classification problem where the target classes are mutually exclusive.These classification problems are called as single-label classification.Single-label classification problems involve mapping each of the input vectors to its unique target class from a pool of target classes.However,there are several classification problems in which the target classes are not mutually exclusive and the input samples belong to more than one target class.These problems cannot be classified using the single-label classification thus resulting in the development of several multi-label classifiers to mitigate this limitation.
+      The single-label classification problem corresponds to training the network with data samples where each of the sample data is associated with a unique target class ?i from a pool of target class labels L 
+= {?1,?2… ?M},where M 
+> 1.The single label classification problem can be further classified into binary classification and multi-class classification.Binary classification problems are the most trivial classification problems and have only two target classes (M 
+= 2: ?1 and ?2).Medical diagnosis [2-4],biometric security [5],quality control,spam detection [6] and other similar applications are examples of binary classification.On the other hand,multi-class classification involves associating the data samples to any one of the target labels from a set of target labels (M 
+> 2).In multi-class classification,each of the input samples corresponds to a unique class among a pool of target class labels.Character recognition [7-9],biometric identification [10,11],and other related applications are examples of multi-class classification.Several online machine learning classifiers for single-label classification are available in the literature [12,13].Evolving classifiers [14,15] and fuzzy systems based classifiers [16-18] have also been developed for streaming data applications.
+      Unlike single-label classification,multi-label problems allow the input samples to be associated with more than one target labels.I.e.multi-label problems map the input data samples x ? X to a set of labels y 
+? L.The traditional binary and multi-class problems form a special case of multi-label problems.Thus,it can be stated that multi-label classifiers form the generalization of the classification problems.Due to its generality,the multi-label classification problems are more difficult and more complex when compared to single-label classification problems [19].
+      The need for multi-label classification is initially motivated by its need in text categorization.A single document can belong to more than one category of topics or labels,thus resulting in the need for a multi-label classifier.By the recent advancements in technology,the application areas of multi-label classifiers spread across various domains.The multi-label classification problems have gained much importance due to its rapidly increasing application areas.The application areas of multi-label classification include but are not limited to text categorization [20-24],bioinformatics [25,26],medical diagnosis [27],image
+/scene and video categorization [28-30],genomics,map labeling [31],marketing,multimedia,emotion,music categorization,etc.In recent years,the multi-label classification has drawn increased research attention due to the realization of the omnipresence of multi-label prediction tasks in several areas [32,33].Due to the wide range of applications and increasing importance,several multi-label classification techniques have been developed and are available in the literature.
+      
+      
+1.2 Learning Techniques
+      /Sequential learning [51].
+            On the other hand,in online
+/sequential learning techniques the network parameters are updated iteratively with single-pass learning procedure [57-60].Several books are available in the literature that comprehensively elaborates the data stream classification [61-64].In many cases,online learning is preferred over batch learning as they can learn from data streams [65,66] and do not require re-training whenever a new data sample is received [41,59,60].Online-sequential learning method that combines ELM and Recursive Least Square (RLS) algorithm has been developed and is called Online-Sequential extreme learning machine (OS-ELM) [51].Several variants of ELM and OS-ELM were developed and proposed in the literature [41,42,53,55,56,67].
+1.3 Thesis Overview
+The prime objectives of this research work are:
+1.	Development of a universal generic classifier that is capable of performing binary,multi-class and multi-label classification.
+2.	Developing an extreme learning machine based advanced learning technique capable of exhibiting progressive learning behaviour for classification problems.
+3.	Integration of progressive learning technique to the universal classifier thereby resulting in a generic classifier capable of dynamic learning of new classes and also capable of addressing all the aforementioned types of classification problems.
+In this line of objectives,following extreme learning machine based techniques have been developed,experimented and evaluated.
+1.	Batch learning classifier for multi-label classification
+2.	Online learning classifier for multi-label classification
+3.	Online learning universal classifier for binary,multi-class and multi-label classification
+4.	Progressive learning classifier for multi-class classification
+5.	Progressive learning classifier for multi-label classification
+6.	Progressive learning universal classifier for binary,multi-class and multi-label classification
+The overview of the research works accomplished to achieve the above-mentioned objectives are summarized in Figure 1.1.
+
+ 
+Figure 1.1.Overview of Thesis
+1.4 Organization of Thesis
+      In Chapter 2,a comprehensive summary of the theory of extreme learning machines and online sequential extreme learning machine are discussed.This chapter also reviews the various existing techniques available in the literature for each of the classification types.
+      In Chapter 3,a batch learning classifier for multi-label problems based on extreme learning machine is developed and discussed.This chapter also evaluates the developed method for various performance metrics.The proposed method is applied to 6 benchmark datasets of different domains and a wide range of label density and label cardinality.The results are compared with 9 state-of-the-arts multi-label classifiers.It can be seen from the results that the proposed method surpasses all state-of-the-arts methods in terms of speed and remain one of the top techniques in terms of other performance metrics.
+      In Chapter 4,a high-speed online neural network classifier based on extreme learning machines for multi-label classification is developed and discussed.The developed technique serves as the base platform for the universal classifier which is discussed in Chapter 5.The proposed method is experimented with six different datasets from different application domains such as multimedia,text,and biology.The hamming loss,accuracy,training time and testing time of the proposed technique is compared with nine different state-of-the-art methods introduced in chapter 3.Experimental studies show that the proposed technique outperforms the existing multi-label classifiers in terms of both performance and speed.
+      In Chapter 5,a single universal classifier which is capable of classifying binary,multi-class and multi-label classification is developed.There are no such universal classifiers available in the literature thus far.The developed classifier is experimented with datasets from binary,multi-class and multi-label problems.The results obtained are compared with state-of-the-art techniques from each of the classification types.
+      In Chapter 6,the human learning inspired progressive learning technique (PLT) is introduced.The PLT is independent of the number of class constraints and it can learn several new classes on the go by retaining the knowledge of previous classes.In this chapter,the PLT is incorporated to multi-class classification.The consistency and the complexity of the PLT for multi-class classification are analyzed.Several standard datasets are used to evaluate the performance of the developed technique.A comparative study shows that the developed technique is superior over the existing techniques.
+      In Chapter 7,the progressive learning technique is incorporated with the online multi-label classification developed in chapter 4.As new labels are being introduced to the network,the network automatically restructures itself,updates the number of output neurons and the weights of interconnections between the neurons in such a way to facilitate learning of the newly introduced labels.From the experimental results,it can be seen that,as new labels are being introduced,the hamming loss of the network drops,which represents the new label being learned by the network.The performance of the proposed technique is evaluated using several multi-label datasets with different combinations of new labels being introduced at various time instances.
+      In Chapter 8,the final outcome of the thesis is achieved.The progressive learning technique is incorporated with the universal classifier and a new classifier is developed.The resulting new classifier can be used for any type of classification problem and any number of dynamic class constraints.The developed classifier is experimented with datasets from different classification types and the performance metrics are evaluated.The results are compared with the state-of-the-arts classifiers of the corresponding classification type.
+      Finally,the conclusions of the research findings are summarized in Chapter 9.It also discusses some of the promising future research directions and ideas from the current work.
+
+
+Chapter 2
+Background and Preliminaries
+      This chapter reviews the various state-of-the-arts classification techniques for multi-label classification available in the literature.The existing techniques are categorized and discussed.This chapter also provides a comprehensive overview of the ELM and OS-ELM methods.It summarizes the theory and the mathematical background of the ELM and OS-ELM technique.
+2.1 Multi-label Classification
+      Multi-label classification has gained much importance in recent years due to its wide range of application domains.As opposed to single-label classification,each input sample is associated with a set of target labels in multi-label classification.The number of target labels corresponding to each input is not fixed and varies dynamically.
+Definition 2.1 The definition for multi-label learning as given by [68] is,“Given a training set,S 
+= (xi,yi),1 ? i 
+? n,consisting n training instances,(xi ? X,yi ? Y) drawn from an unknown distribution D,the goal of the multi-label learning is to produce a multi-label classifier h:X
+?Y that optimizes some specific evaluation function or loss function”
+      Let pi be the probability that the input sample is assigned to ith class from a pool of M target classes.For single label classification such as binary and multi-class classification conforms to the following equality condition.
+
+??p_i =1
+(1)
+      Multi-label problems does not hold to this equality as each sample may have more than one target class.Also,it can be seen that the binary classification problem,the multi - class problem and ordinal regression problems are specific instances of the multi-label problem with the number of labels corresponding to each data sample restricted to 1 [25].
+The multi-label learning problem can be summarized as follows:
+?	There exists an input space that contains tuples (features or attributes) of size D of different data types such as Boolean,discrete or continuous.xi ? X,xi =
+ (xi1,xi2,….xiD)
+?	A label space of tuple size M exists which is given as,L = {?1,?2,….,?M} 
+?	Each data sample is given as a pair of tuples (input space and label space respectively).{(xi,yi) | xi ? X,yi ? Y,Y ?
+ L,1?i?N} where N is the number of training samples.
+?	A training model that maps the input tuple to the output tuple with high speed,high accuracy and less complexity.
+     Several approaches for solving multi-label problem are available in the literature.Earlier categorization of the batch learning multi-label methods [69] classify the methods into two categories: Problem Transformation methods (PT) and Algorithm Adaptation methods (AA).This categorization is extended to include a third category of methods by Gjorgji Madjarov et al [70] called Ensemble methods (EN).Several review articles are available in literature that describes the various methods available for multi-label classification [1,32,68-70].A brief summary of existing methods based on the mentioned review articles is discussed in this section.As adapted from [70],the overview of the multi-label methods available in the literature is given in Figure 2.1.
+ 
+Figure 2.1.Overview of Multi-label Classification Techniques
+
+
+2.1.1 Batch Learning Methods
+      This section reviews the several batch learning techniques for multi-label classification available in the literature.As foreshadowed,the existing methods can be categorized into three categories; Problem transformation methods,Algorithm adaptation methods and Ensemble methods.
+Problem Transformation (PT) Methods
+      Algorithm Adaptation (AA) Methods
+      AA methods are algorithm dependent methods in which the base algorithm itself is extended to adapt to the multi-label scenario.Based on the base algorithm on which the extension of multi-label has been made,the AA methods can be further classified.There are several such techniques available in the literature.Some of the key techniques developed are,predictive clustering trees (PCTs) are adapted from decision tree based classification.Multi-label k-nearest neighbors (ML-kNN) are extended from traditional k-nearest neighbors.Well known C4.5 algorithm is modified for multi-label C4.5 (ML-C4.5) to facilitate multi-label problem solving.Other techniques like neural networks,SVM,Boosting are also extended to have multi-label variants.
+Ensemble (EN) Methods
+      EN methods are developed over the AA and PT methods.EN methods employ an ensemble of learning methods available in AA or PT.Ensemble Classifier Chains (ECC) are an ensemble method that uses CC as base technique.Random forests (RF) are used to ensemble with algorithms such as PCTs,decision trees (DT) and ML-C4.5 thus resulting in RF-PCT,RDT and RFML-C4.5 ensemble multi-label techniques respectively.Random k label sets (RAkEL) method extracts m random subsets of labels with size k and uses label power-set for classifying each of the label sets.
+      Based on the machine learning algorithm used,the multi-label techniques can be categorized as shown in Figure 2.2.The figure is adapted from [70].
+ 
+Figure 2.2.Machine Learning Algorithms for Multi-label Problems
+      2.1.2 Online Methods 
+            
+2.2 Extreme learning machines
+            A condensed overview of the batch learning ELM technique as proposed by Huang et.al.[52] is given below.
+      Consider there are N training samples represented as {(xj,tj)} where j varies from 1 to N,xj denotes the input data vector: xj 
+= [xj1,xj2,…xjn]T ? Rn and tj 
+= [tj1,tj2,…,tjm]T ? Rm denotes the target class labels.Let there be N’ number of hidden layer neurons in the network,the output of the standard SLFN can be given as
+
+?_(i=1)^N'???_i g_i (x_j )= ?_(i=1)^N'???_i g(w_i  .  x_j+ b_i )
+= o_j ??
+(2)
+where,j = 1,2….N,wi 
+= [wi1,wi2,…win]T denotes the weight vector from input nodes to ith hidden node,?i 
+= [?i1,?i2,… ?im]T denotes the weight vector connecting ith hidden node to the output nodes and bi is the hidden layer bias value.
+      For the standard SLFN mentioned in the equation above to perform as a classifier,the output of the network should be equal to the corresponding target class of the input data given to the classifier.Hence,for the SLFN in equation 1 to be a classifier,there exist a ?i,g(x),wi and bi such that
+
+?_(j=1)^N'??o_j- t_j ? =0
+(3)
+Therefore,the equation for the output of the network can be written as,
+
+?_(i=1)^N'???_i g(w_i  .  x_j+ b_i )= t_j ?
+(4)
+where j 
+= 1,2,…N,and tj denotes the target class corresponding to the input data vector xj.This equation can be written in compact form as 
+
+H? = T
+(5)
+where
+
+H= [?(g(w_1  .  x_1+ b_1)&?&g(w_N'  .  x_1+ b_N')@?&?&
+?@g(w_1  .  x_N+ b_1)&?&g(w_N'  .  x_N+ b_N'))]_NXN'
+(6)
+
+
+?= [?(?_1^T@?@?_N'^T )]_N'Xm    
+(7)
+
+T= [?(t_1^T@?@t_N^T )]_NXm
+(8)
+      H is called the hidden layer output matrix of the neural network where each column of H gives corresponding output of the hidden layers for a given input xi.The mathematical framework and the training process are extensively described in the literature [42].The key results are restated.
+Lemma 1: [42] “Given a standard SLFN with N hidden nodes and activation function g: R 
+? R which is infinitely differentiable in any interval,for N arbitrary distinct samples (xi,ti),where xi ? Rn and ti ? Rm,for any wi and bi randomly chosen from any intervals of Rn and R,respectively,according to any continuous probability distribution,then with probability one,the hidden layer output matrix H of the SLFN is invertible and ||H? – T|| 
+= 0”.
+Lemma 2: [42] “Given any small positive value ? > 0 and activation function g: R 
+? R which is infinitely differentiable in any interval,there exists N’ 
+? N such that for N arbitrary distinct samples (xi,ti),where xi ? Rn and ti ? Rm,for any wi and bi randomly chosen from any intervals of Rn and R,respectively,according to any continuous probability distribution,then with probability one,||HNXN’ ?N’Xm – TNXm|| 
+< ?”.
+      Thus it can be seen that for an ELM,the input weights wi,and the hidden layer neuron bias bi can be randomly assigned.Training of the ELM involves estimating the output weights ? such that the relation H? 
+= T is true.
+      The output weight ? for the ELM can be estimated using the Moore-Penrose generalized inverse as ? 
+= H+T,where H
++ is the Moore-Penrose inverse of the hidden layer output matrix H.
+      The overall batch learning algorithm of the ELM for training set of form {(xi,ti)|xi ? Rn,ti ? Rm,i 
+= 1,…N} with N’ hidden layer neurons can be summarized as,
+STEP 1: Random assignment of input weights wi and hidden layer bias bi,i 
+= 1,….N’.
+STEP 2: Computation of the hidden layer output matrix H.
+STEP 3: Estimation of output weights using ? = H+T where H
++ is the Moore-Penrose inverse of H and T = [t1,…tN]T.
+2.3 Online Sequential – Extreme Learning Machine
+      Based on the batch learning method of the ELM,sequential modification is performed and Online Sequential-ELM (OS-ELM) is proposed in literature [14].OS-ELM operates on online data.
+      In the batch learning method ELM the output weight ? is estimated using the formula ? 
+= H+T,where H
++ is the Moore-Penrose inverse of the hidden layer output matrix H.The H
++ can be written as,
+
+H+ = (HTH)-1HT
+(9)
+      As stated in [14],this solution gives the least square solution to H? 
+= T.The OS-ELM uses RLS algorithm to update the output weight matrix sequentially as the data arrives online.It has been well studied in the literature and the summary is given below.
+Let N0 be the number of samples in the initial block of data that is provided to the network.
+Calculate M0 = (H0TH0)-1 and ?0 = M0H0TT0.
+For each of the subsequent sequentially arriving data,the output weights can be updated as
+
+M_(k+1)= M_k-  (M_k h_(k+1) h_(k+1)^T M_k)/(1+h_(k
++1)^T M_k h_(k+1) )
+(10)
+
+?_(k+1)= ?_k+ M_(k+1) h_(k+1) (t_(k+1)^T-h_(k
++1)^T ?_k )
+(11)
+where k = 0,1,2….N-N0-1.
+The steps in the Online-Sequential ELM based on the RLS algorithm are summarized below.
+INITIALIZATION PHASE
+STEP 1: The input weights and the hidden layer bias are assigned in random.
+STEP 2: For the initial block of N0 samples of data,the hidden layer output matrix H0 is calculated.
+H0 = [h1,….hN’]T,where 
+
+hi = [g(w1.xi+b1),….g(wN’.xi+bN’)]T,   i = 1,2…N0.
+(12)
+STEP 3: From the value of H0,the initial values of M0 and ?0 are estimated as
+
+M0 = (H0TH0)-1
+(13)
+
+?0 = M0H0TT0
+(14)
+SEQUENTIAL LEARNING PHASE
+STEP 4: For each of the subsequent sequentially arriving data,the hidden layer output vector hk
++1 is calculated.
+STEP 5: The output weight is updated based on the RLS algorithm as,
+
+M_(k+1)= M_k- ?M_k h_(k+1)^T (I+ h_(k+1) M_k h_(k
++1)^T )?^(-1) h_(k+1) M_k
+(15)
+
+?_(k+1)= ?_k+ M_(k+1) h_(k+1)^T (t_(k+1)- h_(k+1) ?_k )
+(16)
+      The theory and the formulation behind the operation of the OS-ELM and ELM have been discussed in detail in several literatures [41,51].The standard variants of activation function used in ELM [87] and other special mapping functions and their variants are discussed in detail in the literature [88-91].The other variants of ELM includes ELM Kernel [92],ELM for imbalanced data [93],ELM for noisy data [94],Incremental ELM [95],ELM ensemble [96-98] and many other variants are summarized in [87].
+
+
+
+Chapter 3
+Batch Learning–Multi-label Classification
+            
+3.1	 Proposed Algorithm
+The proposed algorithm aims at extending the extreme learning machine for multi-label classification.Therefore,it falls under the category of algorithm adaptation method.The various steps involved in the proposed multi-label ELM classifier are:
+*	Initialization of Parameters
+*	Processing of Inputs
+*	ELM Training
+*	ELM Testing
+*	Post-processing and Multi-label identification
+A.	Initialization of Parameters
+      Fundamental parameters such as the number of hidden layer neurons and the activation function are initialized.
+B.	Processing of Inputs
+      In traditional single label problems,the target class will be a single label associated with the input sample.But in multi-label each input sample can be associated with more than one class labels.Hence,each of the input samples will have the associated output label as a m-tuple with 0 or 1 representing the belongingness to each of the labels in the label space L.This is a key difference between the inputs available for single label and multi-label problems.As opposed to single label classification with a single target label,multi-label problems has a target label set which is a subset of label space L.The label set denoting the belongingness for each of the labels is converted from unipolar representation to bipolar representation.
+C.	ELM Training
+      The processed input is then provided to the basic batch learning ELM.Let H be the hidden layer output matrix,? be the output weights and Y be the target label,the ELM can be represented in a compact form as H? 
+= Y where Y?L,L 
+= {?1,?2,….,?M}.In the training phase,the input weights and the hidden layer bias are randomly assigned and the output weights ? are estimated as ? 
+= H+Y where H+ 
+= (HTH)-1HT gives the Moore-Penrose generalized inverse of the hidden layer output matrix.
+D.	ELM Testing
+      In the testing phase,the test data sample is evaluated using the values of ? obtained during the training phase.The input data which can be a combination of Boolean,discrete and continuous data type is given to the network.The network then predicts the target output using the equation Y 
+= H?.The predicted output Y obtained is set of real numbers of dimension equal to the number of labels.
+E.	Post-processing and Multi-label identification
+            
+      
+      
+      
+      
+      
+Algorithm 1: Proposed Multi-label ELM algorithm 
+1.	Initialization: 
+The fundamental parameters of the network are initialized
+2.	Pre-processing: 
+The raw input data is processed for classification.Each input sample is associated with an m-tuple target labels with values representing the belongingness of the sample to the corresponding label.
+3.	ELM Training:
+– ? = H+Y where H+ = (HTH)-1HT
+– Threshold identification
+4.	ELM Testing:
+Estimation of raw output values using Y = H?
+5.	Post-processing and multi-label identification
+The raw output values is compared with the threshold value.
+Separation into two categories of labels (Labels that the data sample belong to and labels the data sample does not belong to)
+Identifying the number of labels corresponding to input data sample
+Identifying the target class labels for the input data sample
+
+
+
+3.2 Experimentation
+      This section describes the different multi-label dataset metrics and gives the experimental design used to evaluate the proposed method.
+      Multi-label datasets have a unique property called the degree of multi-labelness.The number of labels,the number of samples having multiple labels,the average number of labels corresponding to a particular sample varies among different datasets.Not all datasets are equally multi-label.Two dataset metrics are available in the literature to quantitatively measure the multi-labelness of a dataset.They are Label Cardinality (LC) and Label Density (LD).
+      Consider there are N training samples and the dataset is of the form {(xi,yi)} where xi in the input data and yi is the target label set.The target label set is a subset of labels from the label space with M elements given as Y
+?L,L = {?1,?2… ?M}.
+Definition 3.1 Label Cardinality of the dataset is the average number of labels of the examples in the dataset [69].
+
+Label-Cardinality=  1/N  ?_(i=1)^N?|Y_i | 
+(17)
+      Label Cardinality is independent of the number of labels present in the dataset and signifies the average number of labels present in the dataset.
+
+Definition 3.2 Label Density of the dataset is the average number of labels of the examples in the dataset divided by |L| [69].
+
+Label-Density=  1/N  ?_(i=1)^N?|Y_i |/|L| 
+(18)
+      Label density takes into consideration the number of labels present in the dataset.The properties of two datasets have same label cardinality,but different label density can vary significantly and may result in different behavior of the training algorithm [19].The influence of label density and label cardinality on multi-label learning is analyzed by Bernardini et al in 2013 [99].
+      The proposed method is experimented with six benchmark datasets comprising of different application areas such as multimedia,text and biology.The performance of the proposed method is compared with that of nine existing methods and the results are discussed.
+      Table 3.1.Dataset Specifications
+Dataset
+Domain
+No.of Features
+No.of Labels
+LC
+LD
+Emotion
+Multimedia
+72
+6
+1.87
+0.312
+Yeast
+Biology
+103
+14
+4.24
+0.303
+Scene
+Multimedia
+294
+6
+1.07
+0.178
+Corel5k
+Multimedia
+499
+374
+3.52
+0.009
+Enron
+Text
+1001
+53
+3.38
+0.064
+Medical
+Text
+1449
+45
+1.25
+0.027
+
+      The proposed method is experimented with the six benchmark datasets mentioned in Table 3.1.The training and testing time of the proposed method is compared with nine different multi-label techniques available in the literature.The nine techniques are chosen such that they are from PT,AA and EN methods.Also the chosen techniques belong to different learning paradigms such as SVM,decision trees and nearest neighbors.The details of the state of the art multi-label techniques used for result comparison are given in Table 3.2.
+Table 3.2.Comparison Methods
+Method Name
+Method Category
+Machine Learning Category
+Classifier Chain (CC)
+PT
+SVM
+QWeighted approach for Multi-label Learning (QWML)
+PT
+SVM
+Hierarchy Of Multi-label ClassifiERs (HOMER)
+PT
+SVM
+Multi-Label C4.5 (ML-C4.5)
+AA
+Decision Trees
+Predictive Clustering Trees (PCT)
+AA
+Decision Trees
+Multi-Label k-Nearest Neighbors (ML-kNN)
+AA
+Nearest Neighbors
+Ensemble of Classifier Chains (ECC)
+EN
+SVM
+Random Forest Predictive Clustering Trees (RF-PCT)
+EN
+Decision Trees
+Random Forest of ML-C4.5 (RFML-C4.5)
+EN
+Decision Trees
+
+
+3.3	 Results and Discussions
+   This section discusses the results obtained by the proposed method and compares it with the existing methods.The results obtained from the proposed method are evaluated for consistency,performance and speed.
+3.3.1 Consistency 
+      Consistency is a key feature that is essential for any new technique proposed.The proposed algorithm should provide consistent results with minimal variance.Being an ELM based algorithm,since the initial weights are assigned in random,it is critical to evaluate the consistency of the proposed technique.The unique feature of multi-label classification is the possibility of partial correctness of the classifier,i.e.one or more of the multiple labels to which the sample instance belongs and
+/or the number of labels the sample instance belongs can be identified partially correctly.Therefore,calculating the error rate for multi-label problems is not same as that of traditional binary or multi-class problems.In order to quantitatively measure the correctness of the classifier,the hamming loss performance metric is used.To evaluate the consistency of the proposed method,a 5 fold and a 10 fold cross validation of hamming loss metric is evaluated for each of the six datasets and is tabulated.
+      
+      
+      
+Table 3.3.Consistency Table – Cross Validation
+Dataset
+Hamming Loss - 5-fcv
+Hamming Loss - 10-fcv
+Emotion
+0.2492(±0.0058)
+0.2509(±0.0050)
+Yeast
+0.1906(±0.0025)
+0.1911(±0.0031)
+Scene
+0.0854(±0.0029)
+0.0851(±0.0033)
+Corel5k
+0.0086(±0.0005)
+0.0090(±0.0006)
+Enron
+0.0474(±0.0022)
+0.0472(±0.0015)
+Medical
+0.0108(±0.0008)
+0.0109(±0.0009)
+
+      From the Table 3.3,it can be seen that the proposed technique is consistent in its performance over repeated executions and cross validations thus demonstrating the consistency of the technique.
+3.3.2 Performance Metrics
+      Table 3.4.Hamming Loss Comparison
+Dataset
+CC
+QWML
+HOMER
+ML-C4.5
+PCT
+ML-kNN
+ECC
+RFML-C4.5
+RF-PCT
+ELM
+Emotion
+0.256
+0.254
+0.361
+0.247
+0.267
+0.294
+0.281
+0.198
+0.189
+0.251
+Yeast
+0.193
+0.191
+0.207
+0.234
+0.219
+0.198
+0.207
+0.205
+0.197
+0.191
+Scene
+0.082
+0.081
+0.082
+0.141
+0.129
+0.099
+0.085
+0.116
+0.094
+0.085
+Corel5k
+0.017
+0.012
+0.012
+0.01
+0.009
+0.009
+0.009
+0.009
+0.009
+0.009
+Enron
+0.064
+0.048
+0.051
+0.053
+0.058
+0.051
+0.049
+0.047
+0.046
+0.047
+Medical
+0.077
+0.012
+0.012
+0.013
+0.023
+0.017
+0.014
+0.022
+0.014
+0.011
+
+
+
+ 
+Figure 3.1.Hamming Loss Comparison 
+Table 3.5 Accuracy Comparison
+Dataset
+CC
+QWML
+HOMER
+ML-C4.5
+PCT
+ML-kNN
+ECC
+RFML-C4.5
+RF-PCT
+ELM
+Emotion
+0.356
+0.373
+0.471
+0.536
+0.448
+0.319
+0.432
+0.488
+0.519
+0.412
+Yeast
+0.527
+0.523
+0.559
+0.48
+0.44
+0.492
+0.546
+0.453
+0.478
+0.514
+Scene
+0.723
+0.683
+0.717
+0.569
+0.538
+0.629
+0.735
+0.388
+0.541
+0.676
+Corel5k
+0.03
+0.195
+0.179
+0.002
+0
+0.014
+0.001
+0.005
+0.009
+0.044
+Enron
+0.334
+0.388
+0.478
+0.418
+0.196
+0.319
+0.462
+0.374
+0.416
+0.418
+Medical
+0.211
+0.658
+0.713
+0.73
+0.228
+0.528
+0.611
+0.25
+0.591
+0.715
+
+
+ 
+Figure 3.2.Accuracy Comparison
+Table 3.6.Precision comparison
+Dataset
+CC
+QWML
+HOMER
+ML-C4.5
+PCT
+ML-kNN
+ECC
+RFML-C4.5
+RF-PCT
+ELM
+Emotion
+0.551
+0.548
+0.509
+0.606
+0.577
+0.502
+0.58
+0.625
+0.644
+0.548
+Yeast
+0.727
+0.718
+0.663
+0.62
+0.705
+0.732
+0.667
+0.738
+0.744
+0.718
+Scene
+0.758
+0.711
+0.746
+0.592
+0.565
+0.661
+0.77
+0.403
+0.565
+0.685
+Corel5k
+0.042
+0.326
+0.317
+0.005
+0
+0.035
+0.002
+0.018
+0.03
+0.144
+Enron
+0.464
+0.624
+0.616
+0.623
+0.415
+0.587
+0.652
+0.69
+0.709
+0.668
+Medical
+0.217
+0.697
+0.762
+0.797
+0.285
+0.575
+0.662
+0.284
+0.635
+0.774
+
+
+ 
+Figure 3.3.Precision Comparison
+Table 3.7.Recall comparison
+Dataset
+CC
+QWML
+HOMER
+ML-C4.5
+PCT
+ML-kNN
+ECC
+RFML-C4.5
+RF-PCT
+ELM
+Emotion
+0.397
+0.429
+0.775
+0.703
+0.534
+0.377
+0.533
+0.545
+0.582
+0.491
+Yeast
+0.6
+0.6
+0.714
+0.608
+0.49
+0.549
+0.673
+0.491
+0.523
+0.608
+Scene
+0.726
+0.709
+0.744
+0.582
+0.539
+0.655
+0.771
+0.388
+0.541
+0.709
+Corel5k
+0.056
+0.264
+0.25
+0.002
+0
+0.014
+0.001
+0.005
+0.009
+0.043
+Enron
+0.507
+0.453
+0.61
+0.487
+0.229
+0.358
+0.56
+0.398
+0.452
+0.508
+Medical
+0.754
+0.801
+0.76
+0.74
+0.227
+0.547
+0.642
+0.251
+0.599
+0.744
+
+
+ 
+Figure 3.4.Recall Comparison
+Table 3.8.F1-measure comparison
+Dataset
+CC
+QWML
+HOMER
+ML-C4.5
+PCT
+ML-kNN
+ECC
+RFML-C4.5
+RF-PCT
+ELM
+Emotion
+0.461
+0.481
+0.614
+0.651
+0.554
+0.431
+0.556
+0.583
+0.611
+0.518
+Yeast
+0.657
+0.654
+0.687
+0.614
+0.578
+0.628
+0.67
+0.589
+0.614
+0.658
+Scene
+0.742
+0.71
+0.745
+0.587
+0.551
+0.658
+0.771
+0.395
+0.553
+0.697
+Corel5k
+0.048
+0.292
+0.28
+0.003
+0
+0.021
+0.001
+0.008
+0.014
+0.033
+Enron
+0.484
+0.525
+0.613
+0.546
+0.295
+0.445
+0.602
+0.505
+0.552
+0.577
+Medical
+0.337
+0.745
+0.761
+0.768
+0.253
+0.56
+0.652
+0.267
+0.616
+0.759
+
+
+ 
+Figure 3.5.F1-measure Comparison
+3.3.3 Execution Speed
+      The performance of the proposed method in terms of execution speed is evaluated by comparing the training time and the testing time of the algorithm used.The proposed method is applied to 6 datasets of different domains with a wide range of label density and label cardinality and the training time and the testing time are compared with other state-of-the-art techniques.The comparison table of training time and testing time is given in Table 3.9 and Table 3.10 respectively.
+      
+      
+      
+Table 3.9.Comparison of Training Time (in seconds)
+Dataset
+CC
+QWML
+HOMER
+ML-C4.5
+PCT
+ML-kNN
+ECC
+RFML-C4.5
+RF-PCT
+ELM
+Emotion
+6
+10
+4
+0.3
+0.1
+0.4
+4.9
+1.2
+2.9
+0.04
+Yeast
+206
+672
+101
+14
+1.5
+8.2
+497
+19
+25
+0.2
+Scene
+99
+195
+68
+8
+2
+14
+319
+10
+23
+0.12
+Corel5k
+1225
+2388
+771
+369
+30
+389
+10073
+385
+902
+0.6
+Enron
+440
+971
+158
+15
+1.1
+6
+1467
+25
+47
+0.26
+Medical
+28
+40
+16
+3
+0.6
+1
+103
+7
+27
+0.11
+
+Table 3.10.Comparison of Testing Time (in seconds)
+Dataset
+CC
+QWML
+HOMER
+ML-C4.5
+PCT
+ML-kNN
+ECC
+RFML-C4.5
+RF-PCT
+ELM
+Emotion
+1
+2
+1
+0
+0
+0.4
+6.6
+0.1
+0.3
+0
+Yeast
+25
+64
+17
+0.1
+0
+5
+158
+0.5
+0.2
+0
+Scene
+25
+40
+21
+1
+0
+14
+168
+2
+1
+0
+Corel5k
+31
+119
+14
+1
+1
+45
+2077
+1.8
+2.5
+0.06
+Enron
+53
+174
+22
+0.2
+0
+3
+696
+1
+1
+0
+Medical
+6
+25
+1.5
+0.1
+0
+0.2
+46
+0.5
+0.5
+0
+
+      3.4 Summary
+      
+
+
+
+
+
+
+
+
+
+Chapter 4
+Online Learning – Multi-label Classification
+      4.1 Proposed OSML-ELM
+      The various steps involved in the proposed method are briefly stated.The key novelty of the proposed method is that,there are no online multi-label classification techniques available in the literature that can perform classification in real-time on streaming data.The proposed method is the multi-label formulation of the online sequential extreme learning machine and hence called Online Sequential Multi-label ELM (OSML-ELM).
+Initialization of Parameters.Fundamental parameters such as the number of hidden layer neurons and the activation function are initialized.Sigmoidal activation function is used for the experimentation.The problem of overfitting is tackled by using the early stopping technique.In early stopping technique,the point at which the training accuracy increases at the expense of generalization error is identified and further training is stopped.The number of hidden neurons are selected depending upon the nature and complexity of the dataset while preventing the overfitting of data.
+ELM Training.The processed input is then supplied to the online sequential variant of ELM technique.Let H be the hidden layer output matrix,? be the output weights and Y be the target label,the ELM can be represented in a compact form as H? 
+= Y where Y?L,L 
+= {?1,?2,….,?m}.During the training phase,Let N0 be the number of samples in the initial block of data that is provided to the network.The initial output weight ?0 is calculated from equation 9 and 10.
+? = H+Y and H+ = (HTH)-1HT,
+Consider M0 = (H0TH0)-1,therefore,?0 = M0H0TY0.
+      For each of the subsequent sequentially arriving data,the output weights can be updated by incorporating the recursive least square algorithm with the ELM learning as
+
+M_(k+1)= M_k-  (M_k h_(k+1) h_(k+1)^T M_k)/(1+h_(k
++1)^T M_k h_(k+1) )
+(19)
+
+?_(k+1)= ?_k+ M_(k+1) h_(k+1) (Y_(k+1)^T-h_(k
++1)^T ?_k )
+(20)
+where k = 0,1,2….N-N0-1.
+      The detailed mathematics and derivation behind the recursive least square based online ELM learning called online-sequential extreme learning machine is discussed in detail in several literatures.
+ELM Testing.In the testing phase,the test data sample is evaluated using the values of ? obtained during the training phase.The input data that can be a combination of Boolean,discrete and continuous data type is given to the network.The network then computes Y 
+= H?.The predicted output Y obtained is a set of real numbers of dimension equal to the number of labels.
+      Setting the threshold value is of critical importance.The threshold value is selected such that it maximizes the difference between the category of labels to which the sample belongs to and the category of labels to which the sample does not belong to with respect to the raw output values Y obtained during the training phase.The distribution of the raw output values of Y for categories of labels that the input sample belongs to  (YA) and the categories of labels the input sample does not belong to (YB) are identified.Based on the distribution of YA and YB,a threshold value is identified using the formula,
+
+Threshold value = (min(YA) + max(YB))/2
+(21)
+      
+      Algorithm 2: Proposed OSML-ELM algorithm 
+6.	The parameters of the network are initialized
+7.	The raw input data is processed for classification
+8.	ELM Training – Initial phase
+Processing of initial block of data
+M0 = (H0TH0)-1
+?0 = M0H0TY0
+9.	ELM Training – Sequential phase
+Online processing of sequential data
+M_(k+1)= M_k-  (M_k h_(k+1) h_(k+1)^T M_k)/(1+h_(k
++1)^T M_k h_(k+1) )
+?_(k+1)= ?_k+ M_(k+1) h_(k+1) (Y_(k+1)^T-h_(k+1)^T ?_k )
+10.	ELM Testing
+Estimation of raw output values using Y = H?
+11.	Thresholding
+Applying the threshold value based on separation between two categories of labels (YA and YB).Threshold value 
+= (min(YA) + max(YB))/2
+Identifying the number of labels corresponding to input data sample
+Identifying the target class labels for the input data sample
+
+4.2	 Experimentation
+      This section describes the different multi-label dataset metrics and gives the experimental design used to evaluate the proposed method.
+                  
+      
+      
+      
+      
+Table 4.1.Dataset Specifications
+Dataset
+Domain
+No.of Features
+No.of Samples
+#Train
+#Test
+No.of Labels
+LC
+LD
+Yeast
+Biology
+103
+2417
+1600
+817
+14
+4.24
+0.303
+Scene
+Multimedia
+294
+2407
+2000
+407
+6
+1.07
+0.178
+Corel5k
+Multimedia
+499
+5000
+4500
+500
+374
+3.52
+0.009
+Enron
+Text
+1001
+1702
+1200
+502
+53
+3.38
+0.064
+Medical
+Text
+1449
+978
+700
+278
+45
+1.25
+0.027
+
+      The hamming loss,training and testing time of the proposed method are compared to 9 different multi-label techniques available in the literature.The 9 techniques are chosen such that they are from PT,AA and EN methods.The implementation procedure of all the 9 techniques are adapted from the extensive experimental comparison work on multi-label classifiers by Madjarov and team.Also,the chosen techniques belong to different learning paradigms such as SVM,decision trees,and nearest neighbors.The details of state-of-the-arts multi-label techniques used for result comparison are given in Table 4.2.
+      
+4.3 Results and Discussions
+      The proposed method is experimented with each of the datasets mentioned in Table 3 and is compared with 9 state-of-the-art multi-label classification techniques.Also,the performance of the proposed method is compared with the state-of-the-art online multi-label technique.This section discusses the results obtained by the proposed method and compares it with the existing methods.The results obtained from the proposed method are evaluated for consistency,performance,and speed.
+4.3.1 Consistency 
+      Consistency is a key feature that is essential for any new technique proposed.Any technique proposed should provide consistent results for multiple trials with minimal variance.The consistency of a technique can be identified using cross-validation procedure.Therefore,a 5-fold cross validation and a 10-fold cross validation is performed on the proposed technique for each of the 5 datasets.Since the initial weights are assigned randomly for an ELM based technique,it is critical to evaluate the consistency of the proposed technique.
+      
+      
+      
+      
+Table 4.2.Comparison Methods
+Method Name
+Method Category
+Machine Learning Category
+Classifier Chain (CC)
+PT
+SVM
+QWeighted approach for Multi-label Learning (QWML)
+PT
+SVM
+Hierarchy Of Multi-label ClassifiERs (HOMER)
+PT
+SVM
+Multi-Label C4.5 (ML-C4.5)
+AA
+Decision Trees
+Predictive Clustering Trees (PCT)
+AA
+Decision Trees
+Multi-Label k-Nearest Neighbors (ML-kNN)
+AA
+Nearest Neighbors
+Ensemble of Classifier Chains (ECC)
+EN
+SVM
+Random Forest Predictive Clustering Trees (RF-PCT)
+EN
+Decision Trees
+Random Forest of ML-C4.5 (RFML-C4.5)
+EN
+Decision Trees
+
+      The unique feature of multi-label classification is the possibility of the partial correctness of the classifier.Therefore,calculating the error rate for multi-label problems is not same as that of traditional binary or multi-class problems.One or more of the multiple labels to which the sample instance belongs and
+/or the number of labels the sample instance belongs can be identified partially correctly resulting in the partial correctness of the classifier.Hence,the hamming loss performance metric is used to quantitatively measure the correctness of the classifier.The hamming loss is a measure of the misclassification rate of the learning technique.The lower the hamming loss,the better is the classification accuracy.
+      Hamming loss gives the percentage of wrong labels to the total number of labels.It represents the number of times the sample-label pair is misclassified.
+      The hamming loss for an ideal classifier is zero.The hamming loss is calculated using the following expression,
+
+Hamming Loss =  1/N  ?_(i=1)^N??1/m  |MLC(x_i )? Y_i | ?
+(22)
+
+where,MLC(xi) denotes the predicted output of the multi-label classifier,and Yi gives the target result to be achieved.
+      To evaluate the consistency of the proposed method,a 5-fold and a 10-fold cross validation of hamming loss metric is carried out for each of the 5 datasets and is tabulated.
+Table 4.3.Consistency Table – Cross Validation
+Dataset
+Hamming Loss - 5-fcv
+Hamming Loss - 10-fcv
+Yeast
+0.206 ± 0.001
+0.206 ± 0.002
+Scene
+0.098 ± 0.002
+0.098 ± 0.002
+Corel5k
+0.009 ± 0.000
+0.009 ± 0.000
+Enron
+0.049 ± 0.001
+0.049 ± 0.001
+Medical
+0.011 ± 0.001
+0.011 ± 0.001
+
+      From Table 4.3,it can be seen that the proposed technique is consistent in its performance over repeated executions and cross validations,thus,demonstrating the consistency of the technique.
+4.3.2 Performance Metrics
+      Due to the possibility of the partial correctness of the classifier result,one specific metric will not be sufficient to quantitatively measure the performance of a technique.Therefore,a set of quantitative performance evaluation metrics is used to validate the performance of the multi-label classifier.The performance metrics used are hamming loss,accuracy,precision,recall and F1-measure.
+Hamming Loss.The hamming loss is a measure of misclassification rate of the learning technique.The lower the hamming loss,the better is the classification accuracy.The correctness of the classification of the learning technique can be analyzed by comparing the hamming loss metric.The definition of the hamming loss and the mathematical equation are foretold in equation 22.
+Accuracy.Accuracy of a classifier is defined as the ratio of the total number of correctly predicted labels to the total number of labels of that sample instance.The accuracy measure can be evaluated using the following expression,
+
+Accuracy =  1/N  ?_(i=1)^N?(|MLC(x_i)?Y_i |/|MLC(x_i)
+?Y_i | ) 
+(23)
+
+Precision.Precision is the proportion of the predicted correct labels to the total number of actual labels averaged over all instances.In other words,it is the ratio of true positives to the sum of true positives and false positives averaged over all instances.Precision can be computed as follows,
+
+Precision =  1/N  ?_(i=1)^N?(|MLC(x_i)?Y_i |/|MLC(x_i)| ) 
+(24)
+
+Recall.Recall is the proportion of the predicted correct labels to the total number of predicted labels averaged over all instances.In other words,it is the ratio of true positives to the sum of true positives and false negatives averaged over all instances.The expression for recall is given as follows:
+
+Recall =  1/N  ?_(i=1)^N?(|MLC(x_i)?Y_i |/|Y_i | ) 
+(25)
+
+F1 measure.F1 measure is given by the harmonic mean of Precision and Recall.The expression to evaluate F1 measure is given by,
+
+F1-measure =  1/N  ?_(i=1)^N?((2* |MLC(x_i)?Y_i |)
+/(|MLC(x_i)|+ |Y_i | )) 
+(26)
+      
+      The proposed method is experimented on five different datasets for the five different performance metrics,and the results are tabulated.From Table 4.4,it can be seen that,the proposed method has a very low hamming loss and better performance metric measures for a wide range of datasets irrespective of the label density and label cardinality values.
+      
+      
+      
+      
+Table 4.4.Performance metrics of OSML-ELM
+Dataset
+Hamming Loss
+Accuracy
+Precision
+Recall
+F1 measure
+Yeast
+0.206
+0.493
+0.693
+0.580
+0.632
+Scene
+0.098
+0.610
+0.630
+0.645
+0.637
+Corel5k
+0.009
+0.060
+0.175
+0.063
+0.093
+Enron
+0.049
+0.404
+0.640
+0.461
+0.536
+Medical
+0.011
+0.713
+0.760
+0.740
+0.750
+
+4.3.3 Comparison with State-of-the-Arts Techniques
+      The performance of the proposed method is compared with nine state-of-the-art techniques as specified in Table 4.2.Hamming loss performance metric provides the percentage of wrong labels to the total number of labels.Accuracy performance metric provides the ratio of the total number of correctly predicted labels to the total number of labels of that sample instance.Therefore,hamming loss and accuracy are the key performance metrics for evaluating the performance of the proposed method.The hamming loss and accuracy metrics are used to compare the performance of the proposed technique with the state-of-the-art techniques.The comparison results are given in Figure 4.1 and Figure 4.2 respectively.
+ 
+Figure 4.1.Hamming Loss Comparison
+ 
+Figure 4.2.Accuracy Comparison
+      Hamming loss is the measure of misclassification in the dataset.Lower the hamming loss,better the performance of the classifier.For an ideal classifier,the hamming loss is equal to zero.Accuracy is the ratio of number of correctly predicted labels to the total number of labels for a given sample.Higher the accuracy,better the performance of the classifier.It is evident from the figure that,among the 10 different multi-label classifiers,the proposed method ranks among the top methods for all datasets,thus,outperforming most of the existing state-of-the-art techniques.
+4.3.4 Comparison of Execution Speed
+      The performance of the proposed method in terms of execution speed is evaluated by comparing the training time and the testing time of the algorithm used.The proposed method is applied to 5 different datasets from various application domains and a wide range of label density and label cardinality values.The comparison of training time and testing time of the proposed method with existing state-of-the-art methods are tabulated in Tables 4.5 and 4.6.
+Table 4.5.Training Time Comparison
+Dataset
+CC
+QWML
+HOMER
+ML-C4.5
+PCT
+ML-kNN
+ECC
+RFML-C4.5
+RF-PCT
+OSML-ELM
+Yeast
+206
+672
+101
+14
+1.5
+8.2
+497
+19
+25
+0.114
+Scene
+99
+195
+68
+8
+2
+14
+319
+10
+23
+2.329
+Corel5k
+1225
+2388
+771
+369
+30
+389
+10073
+385
+902
+5.365
+Enron
+440
+971
+158
+15
+1.1
+6
+1467
+25
+47
+0.630
+Medical
+28
+40
+16
+3
+0.6
+1
+103
+7
+27
+0.663
+Table 4.6.Testing Time Comparison
+Dataset
+CC
+QWML
+HOMER
+ML-C4.5
+PCT
+ML-kNN
+ECC
+RFML-C4.5
+RF-PCT
+OSML-ELM
+Yeast
+25
+64
+17
+0.1
+0
+5
+158
+0.5
+0.2
+0.017
+Scene
+25
+40
+21
+1
+0
+14
+168
+2
+1
+0.047
+Corel5k
+31
+119
+14
+1
+1
+45
+2077
+1.8
+2.5
+0.076
+Enron
+53
+174
+22
+0.2
+0
+3
+696
+1
+1
+0.028
+Medical
+6
+25
+1.5
+0.1
+0
+0.2
+46
+0.5
+0.5
+0.039
+
+      From Tables 4.5 and 4.6,it can be clearly seen that the proposed OSML-ELM outperforms all the existing techniques in terms of execution speed.Despite being an online learning algorithm,the speed of the proposed OSML-ELM is several folds faster than most of the existing batch learning techniques.This high speed nature of the OSML-ELM will enable it to perform real-time multi-label classification on streaming data.It is to be highlighted that there are no existing techniques in the literature that can perform real-time online multi-label classification.
+      
+      
+      
+4.3.5 Real-Time Classification
+      For an online classifier to perform classification in real-time,the time taken for executing a single block of data (epoch) should be very low.If the time taken for processing an epoch is more than the rate of arrival of the sequential data,real-time processing of the streaming data cannot be achieved.From the results obtained for the training time of the classifier,the average time required for the execution of a single block of data can be estimated.The number of epochs is identified by the number of times the sequential learning phase is executed while experimenting with the specific dataset.The average time of execution to process a single block of data for the five different datasets are tabulated.
+Table 4.7.Average Time per Epoch
+Dataset
+Training Time (s)
+Number of epochs
+Average time(s)
+/epoch
+Yeast
+0.114
+51
+0.00223529
+Scene
+2.329
+48
+0.04852083
+Corel5k
+5.365
+93
+0.05768817
+Enron
+0.63
+48
+0.013125
+Medical
+0.663
+37
+0.01791892
+
+   4.4 Summary
+   
+
+
+
+
+
+
+
+
+Chapter 5
+Online Learning – Universal Classifier
+            5.1 Proposed Approach
+     1.	Identification of classification type
+2.	Estimating the number of target labels corresponding to each input sample
+3.	Identifying each of the associated target labels.
+The proposed approach is based on the online variant of ELM called online sequential extreme learning machine.The proposed approach falls under the category of an algorithm adaptation method in which the base algorithm is extended to adapt to the requirements of the universal classification.The various phases of the proposed algorithm are summarized.
+Initialization Phase.  Initialization Phase involves setting up the fundamental network parameters for the target classification problem.Being an ELM based technique,the input weights and the bias values are randomly initialized.The number of hidden layer neurons and the activation function are assigned.The number of hidden layer neurons is to be selected such that the problem of overfitting is avoided.
+Online Training Phase.During the training phase,the data samples and the target labels are provided as the input and the output weight values are estimated iteratively by online training.The proposed method is based on the online variant of ELM.The online training phase has two steps.
+Initial Block Step: Let N0 be the number of training samples in the initial block of data,the initial output weight values are calculated using equations
+
+M0 = (H0TH0)-1
+(27)
+
+?0 = M0H0TY
+(28)
+
+Sequential Training Step: Upon completion of the initial block step,the subsequent data samples arriving sequentially are processed in the sequential training step.The output weight is updated iteratively with sequentially arriving data blocks using the recursive least square technique [41,51].The sequential update of output weight is given by the equations
+
+M_(k+1)= M_k-  (M_k h_(k+1) h_(k+1)^T M_k)/(1+h_(k
++1)^T M_k h_(k+1) )
+(29)
+
+?_(k+1)= ?_k+ M_(k+1) h_(k+1) (Y_(k+1)^T-h_(k
++1)^T ?_k )
+(30)
+
+By the end of the training phase,the values of ? are estimated.
+Testing Phase.In the testing phase,the target output of the input samples is predicted using the values of ? estimated from the training phase and the input data samples.The raw output values of the network are evaluated using the relation Y 
+= H?.The raw output value obtained from the testing phase is then processed to address the three challenges of the universal classifier.
+Classification Phase.In the classification phase,the raw output values Y obtained from the training phase is used to predict the classification type,number of associated target labels and identifying each of the target labels corresponding to each input sample.
+Identifying the Classification Type: The classification type of binary,multi-class or multi-label is identified using the classification type (CT) value and dimension of output vector ‘l’.The CT value is evaluated using the equation.
+
+CT= | HS(Y)  |
+(31)
+
+where Y is the raw output vector and HS(x) is the heaviside function.Identification of classification type based on all possible valid combinations of CT and L is given in Table 5.1.
+Table 5.1: Identification of Classification Type
+CT 
+= 1
+L 
+= 2
+Binary Classification
+CT 
+= 1
+L 
+> 2
+Multi-class Classification
+CT 
+> 1
+L 
+> 2
+Multi-label Classification
+
+Estimating the Number of Target Labels: Upon establishing the classification type,the number of target labels is then estimated as given in Table 5.2.For binary and multi-class classification,the number of target labels is one,since each input belongs to unique target labels.For multi-label classification,the CT value corresponds to the number of target labels associated with the input data sample.
+
+
+
+Table 5.2: Estimation of Number of Target Labels
+Classification Type
+Number of Target Labels
+Binary Classification
+1
+Multi-class Classification
+1
+Multi-label Classification
+?_(i=1)^L?HS(Y_i ) 
+
+Algorithm 3: Proposed Universal Classifier Algorithm
+1.Initialization of parameters
+2.Formatting input to uniform representation
+3.Initial block training
+Input: Initial N0 samples of data in the form {(xi,yi)} 
+Output: ?0
+Evaluation:
+M0 = (H0TH0)-1       
+?0 = M0H0TY0
+4.Sequential training
+Input: Sequentially arriving data blocks in the form {(xi,yi)}
+Output: ?k
+Evaluation:
+M_(k+1)= M_k-  (M_k h_(k+1) h_(k+1)^T M_k)/(1+h_(k+1)^T M_k h_(k
++1) )
+?_(k+1)= ?_k+ M_(k+1) h_(k+1) (Y_(k+1)^T-h_(k+1)^T ?_k )
+5.Evaluating raw output value Y
+Input: Data sample xi
+Output: Y
+Evaluation:
+Y = H?
+6.Evaluating CT value: CT= | H(Y)  |
+7.Identifying classification type based on CT and L
+8.Evaluating number of associated target labels
+9.Calculating the belongingness vector: B=H(Y)
+10.Identifying the associated target labels
+11.Evaluation of performance metrics corresponding to classification type
+
+Identifying the Target Labels: The target labels are identified using the belongingness vector.The belongingness vector B is given as,
+
+B = HS(Y)
+(32)
+where Y is the raw output value and HS(x) is Heaviside function.Each element of the vector B denotes the belongingness of the input to the corresponding label.Thus,the label index of the non-zero entries of the B gives the target labels associated with the input samples.Upon estimating the target labels,the performance metrics of the classifier are evaluated.Thus,the proposed technique is capable of classifying all three types of classification problems.The overview of the proposed approach is summarized.
+5.2 Experimentation
+      
+
+
+
+
+
+
+
+Table 5.3: Datasets Specifications
+
+
+Classification type
+Dataset
+Number of labels
+Feature dimension
+Number of Samples
+Label Cardinality
+Label Density
+Single-label
+Binary
+Diabetes
+2
+8
+768
+1.00
+0.500
+
+
+Ionosphere
+2
+34
+351
+1.00
+0.500
+
+Multi-class
+Iris
+3
+4
+150
+1.00
+0.333
+
+
+Waveform
+3
+21
+5000
+1.00
+0.333
+
+
+Balance-scale
+3
+4
+625
+1.00
+0.333
+Multi-label
+Scene
+6
+294
+2407
+1.07
+0.178
+
+Yeast
+14
+103
+2417
+4.24
+0.303
+
+Corel5k
+374
+499
+5000
+3.53
+0.009
+
+Enron
+53
+1001
+1702
+3.38
+0.064
+
+
+
+
+
+
+5.3 Results and Discussions
+	This section summarizes the experimental results of the proposed universal classifier on the datasets specified in table.Being an online method,the proposed algorithm can be used for streaming data applications.
+
+
+5.3.1 Consistency
+            Hamming loss is one of the key performance metric for multi-label classification.It is the quantitative measure of the number of times the sample-label pair is misclassified.Lower the hamming loss,better the performance of the classifier.Hamming loss is evaluated as the summation of misclassified sample-label pair averaged over the total number of samples and labels.
+      Different sets of performance metrics are used for single-label and multi-label classifiers.The performance of the binary and multi-class classifier is evaluated using percentage of accuracy and the performance of multi-label classifier is evaluated using hamming loss for the consistency evaluation.The results obtained are tabulated in Table 5.4.From the table,it can be seen that the proposed universal classifier is highly consistent for all datasets from binary,multi-class and multi-label classification.
+Table 5.4: Consistency
+Single-label Classification
+Dataset
+Accuracy % (10-fcv)
+
+Diabetes
+78.2 ± 3.2
+
+Ionosphere
+96.4 ± 2.6
+
+Iris
+99.2 ± 0.6
+
+Waveform
+85.3 ± 1.8
+
+Balance-scale
+90.7 ± 3.7
+Multi-label Classification
+Dataset
+Hamming loss (10-fcv)
+
+Scene
+0.096 ± 0.002 
+
+Yeast
+0.201 ± 0.001
+
+Corel5k
+0.009 ± 0.000
+
+Enron
+0.047 ± 0.001
+
+5.3.2 Performance Comparison
+There are no universal classifier available in the literature to perform direct comparison with the proposed method.Therefore,the performance of the proposed classifier is compared with the state-of-the-art techniques in each of the classification type.For single-label classification datasets,the performance of the proposed method is compared with similar binary and multi-class techniques based on SVM,kNN,MLP and ELM.
+
+
+Table 5.5: Performance Comparison
+
+
+Single-label Classification
+Dataset
+Accuracy %
+
+SVM
+kNN
+MLP
+ELM
+Universal Classifier
+Diabetes
+77.5
+76.7
+76.4
+78.1
+78.2
+Ionosphere
+94.9
+96.7
+96.0
+96.6
+96.4
+Iris
+98.7
+98.4
+99.2
+98.6
+99.2
+Waveform
+85.7
+84.3
+85.1
+84.5
+85.3
+Balance-scale
+91.2
+90.3
+88.6
+89.3
+90.7
+Multi-label Classification
+Dataset
+Hamming loss
+
+SVM
+kNN
+RF-PCT
+RFML-C4.5
+Universal Classifier
+Scene
+0.082
+0.099
+0.094
+0.116
+0.096
+Yeast
+0.193
+0.198
+0.197
+0.205
+0.201
+Corel5k
+0.012
+0.009
+0.009
+0.009
+0.009
+Enron
+0.048
+0.051
+0.046
+0.047
+0.047
+
+
+      For multi-label classification problems,the performance of the proposed classifier is compared with SVM,kNN,DT and RF based techniques.The results are given in the Table 5.5.Presence of the possibility of partial correctness in multi-label classification results in the need for evaluation of other parameters such as accuracy and F1 measure for multi-label classification.The results are tabulated in Table 5.6.
+Table 5.6: Multi-label Performance Metrics
+Dataset
+Accuracy
+Precision
+Recall
+F1-measure
+Scene
+0.615
+0.634
+0.642
+0.638
+Yeast
+0.498
+0.697
+0.582
+0.634
+Corel5k
+0.062
+0.179
+0.061
+0.091
+Enron
+0.408
+0.645
+0.464
+0.540
+
+      From the comparison table it is evident that the proposed universal classifier performs uniformly well in datasets of all classification types.
+5.3.3 Execution Speed
+      The execution speed of the proposed classifier is evaluated in terms of training time and testing time.Execution speed of the classifier plays a vital role for streaming data applications.In order to perform real-time streaming data classification,the execution speed of the classifier should be less than the arrival rate of the streaming data.Therefore,a high speed classifier is essential for real-time streaming data applications.The proposed universal classifier exploits the inherent high-speed nature of the ELM.The training time and the testing time of the proposed universal algorithm for each dataset is given in Table 5.7.
+Table 5.7: Execution Speed
+Dataset
+Training Time (s)
+Testing Time (s)
+Single-label Classification
+Diabetes
+0.005
+0
+Ionosphere
+0.007
+0
+Iris
+0.002
+0
+Waveform
+0.012
+0.001
+Balance-scale
+0.009
+0
+Multi-label Classification
+Scene
+2.546
+0.053
+Yeast
+0.134
+0.021
+Corel5k
+5.521
+0.079
+Enron
+0.652
+0.043
+      From the table,it is evident that the proposed classifier is capable of performing classification of all types with high speed,thus facilitating its application for real-time streaming data.
+5.4 Summary
+      A novel online universal classifier based on extreme learning machine is developed.It is to be highlighted that there are no classifiers available in the literature that can classify binary,multi-class and multi-label classification.The proposed online universal classifier is experimented with nine different datasets of different classification types and the results are compared with state-of-the-art techniques in each type of classification problem.The proposed classifier is evaluated in terms of consistency,performance and speed.The high speed nature of the proposed classifier makes it suitable for real-time streaming data applications.
+
+
+
+
+
+
+
+Chapter 6
+Progressive Learning – Multi-class Classification
+      In this chapter,a progressive learning technique for multi-class classification is developed.The proposed progressive learning algorithm is adapted from the natural learning process exhibited by the children.Peter Jarvis in his book [100] has described in detail the nature of the human learning process.As opposed to traditional machine learning algorithm’s training-testing cycle,human learning is a continuous process.The learning 
+/ training phase is never ending.Whenever human brain is stumbled upon with a new phenomenon,the learning resumes [100].The key feature of human learning is that,the learning of new phenomenon does not affect the knowledge learnt.The new knowledge is leant and is added along with existing knowledge.Though there are several online and sequential learning methods,the information of number of classes is fixed during initialization.This restricts the possibility of learning newer classes on the run.Existing machine learning algorithms fails to resume learning when an entirely new class 
+6.1 Proposed Algorithm
+      The key objective of the progressive learning technique is that it can dynamically learn new classes on the run.Suppose the network is initially trained to classify ‘m’ number of classes.Consider the network encounters ‘c’ number of new classes which are alien to the previously learnt class,the Progressive Learning Technique (PLT) will adapt automatically and starts to learn the new class by maintaining the knowledge of previously learnt classes.
+            Consider there are N’ hidden layer neurons,and the training data is of the form (xi,ti),the steps of the PLT algorithm are:
+INITIALIZATION PHASE
+STEP 1: The input weights and the hidden layer bias are assigned at random.
+STEP 2: For the initial block of N0 samples of data,the hidden layer output matrix H0 is calculated.
+H0 = [h1,….hN’]T,where 
+
+hi=[g(w1.xi+b1),….g(wN’.xi+bN’)]T,      i = 1,2…N0.
+(33)
+STEP 3: From the value of H0,the initial values of M0 and ?0 are estimated as
+
+M0 = (H0TH0)-1
+(34)
+
+?0 = M0H0TT0
+(35)
+SEQUENTIAL LEARNING PHASE
+      The subsequent data that arrives to the network can be trained either on one-by-one or chunk-by-chunk basis.Let ‘b’ be the chunk size.Unity value for b results in training the network on one-by-one basis.
+   When a new data sample
+/chunk of data is arrived,it can fall into either of the two categories.
+i)	Absence of new class of data
+ii)	Presence of new class / classes of data
+   If there are no new classes in the current set of data,the PLT is similar to OS-ELM and the usual process of calculating and updating the output weights is performed.The subsequent algorithm steps for the case of no new classes in current chunk of data are as follows.
+STEP 4: The hidden layer output vector hk+1 is calculated.
+STEP 5: The output weight is updated based on the RLS algorithm as,
+
+M_(k+1)= M_k- ?M_k h_(k+1)^T (I+ h_(k+1) M_k h_(k
++1)^T )?^(-1) h_(k+1) M_k
+(36)
+
+?_(k+1)= ?_k+ M_(k+1) h_(k+1)^T (t_(k+1)- h_(k+1) ?_k )
+(37)
+      If there is a new class(es) in the chunk of data arrived,a novel progressive learning technique is used to recalibrate the network to accommodate new class by retaining old knowledge.
+      The algorithm maintains the classes learnt thus far in a separate set.When a new data sample
+/block of data arrives,the data are analyzed for the class it belongs to.If the target class of new data block is equal to or a subset of existing classes,no new classification has been encountered.When the new data block’s target class set is not a subset of existing classes,it means that the system has encountered new classification and a special recalibrate routine is initiated.
+      In the recalibration routine,the number of new classes encountered is determined and class labels are identified.Let ‘c’ be the number of new classes encountered.Upon identifying the number of new classes introduced,the set containing the classes learnt thus far is updated accordingly.
+      The neural network is redesigned with the number of output neurons increased accordingly and the interconnections redone.The weights of the new network are determined from the current and the previous weights of the old network.The weight update is made such that the knowledge learnt by the old network is retained and the knowledge of new classes is included along with it.
+      Consider there are N’ hidden layer neurons in the network,m classes of data are currently learnt by the network and b be the chunk size of the sequential learning.The introduction of ‘c’ new classes at any instant k
++1,will modify the dimensions of the output weight matrix ? from ?N’Xm to ?N’Xm
++c.
+      The output weight matrix ? is of critical importance in ELM based networks.Since the input weights and the hidden layer bias are randomly assigned,the values in the ? matrix control the number of classes learnt and the accuracy of each class.The algorithm steps are continued as follows.
+STEP 4: The values of ?N’Xm
++c are calculated based on the current values of ?N’Xm,(hk)bXN’ and (Mk)N’XN’.
+      The current ? matrix is of the dimension (?_k )_(N^' Xm) and ‘c’ new classes are introduced.Therefore,to accommodate the output weight matrix for the increased number of output layer neurons,the ? matrix is transformed to (?_k ) ? as given in equation.
+
+(?_k ) ?= (?_k )_(N^' Xm)   I_(mXm+c)
+(38)
+where I_(mXm+c) is a rectangular identity matrix of dimension m X m+c.
+
+(?_k ) ?_(N'Xm+c)
+= (?_k )_(N^' Xm)   [?(?(1&0&…@0&1&…@?(0@0)&?(0@0)&?(…@…))&?(0@0@?(0@0)))]_(mXm
++c)
+(39)
+
+(?_k ) ?_(N'Xm+c)= [?((?_k )_(N^' Xm)&O_N'Xc )]_(N'Xm+c)
+(40)
+where  O_N'Xc is zero matrix.
+      Upon extending the weight matrix to accommodate the increased number of output neurons,the learning learnt thus far has to be incorporated in the newly upgraded weight matrix.Appending zero matrix is a trivial way to increase the dimensions.The matrix values have to be updated such that the network retains the knowledge of existing classes and can learn new classes as if they were available from the beginning of the training phase.
+      From equation 18,it can be seen that,the error difference between the target class t_(k
++1) and the predicted class h_(k
++1) ?_k is scaled by a learning factor and is added to ?_k.Since ‘c’ new classes are introduced only at the k
++1th time instant,for the initial k data samples,the target class label value corresponding to the new class is -1.Therefore,the k-learning step update for the ‘c’ new classes ((
+????_k )_N'Xc) can be written as,
+
+(????_k )_N'Xc= (M_k )_N'XN'  (h_k^T )_N'Xb  [?(-1&?&-1@?&
+?&?@-1&?&-1)]_bXc
+(41)
+
+(????_k )_N'Xc= ?-(M_k )?_N'XN'  (h_k^T )_N'Xb  J_bXc
+(42)
+where J_bXc is an all-ones matrix.
+
+J_bXc=  [?(1&?&1@?&?&?@1&?&1)]_bXc
+(43)
+      The k-learning step update for the new classes is then incorporated with the (?_k ) ?_(mXm
++c) to provide the upgraded (?_k )_(N^' X(m
++c) ) matrix which is recalibrated to adapt learning ‘c’ new classes.
+
+(??? ??_k )_(N^' Xm+c)
+= [?(O_N'Xm&?-(M_k )?_N'XN'  (h_k^T )_N'Xb  J_bXc )]
+(44)
+The recalibrated output weight matrix (?_k )_(N^' X(N'+c) ) is calculated as,
+
+(?_k )_(N^' X(m+c) )= (?_k ) ?_(N'Xm+c)+ (??? ??_k )_(N^' Xm
++c)
+(45)
+Upon simplification,(?_k )_(N^' X(N'+c) ) can be expressed as,
+
+(?_k )_(N^' X(m+c) )= ?[ (?_k )?_(N^' Xm)      (????_k )_N'Xc  ]
+(46)
+(?_k )_(N^' Xm) represents the knowledge previously learnt.The dimension of ? is increased from m to m
++c.As opposed to populating the increased dimension with identity matrix values,the new entries (
+????
+_k )_N'Xc   are calculated in such a way that the newly introduced classes will appear to the neural network as if they are present from the beginning of the training procedure and the training data samples thus far does not belong to the newly introduced class.
+      The network is recalibrated such that the (????
+_k )_N'Xc  matrix represents the learning of the new class from the beginning of the training phase to the current data sample considering that none of the previous data samples belong to the newly introduced class.i.e.The (
+????
+_k )_N'Xc is computed which is equivalent to the k-learning step equivalent of the ‘c’ new classes from the beginning of the training phase.
+      Therefore the updated (?_k )_(N^' X(m
++c) ) matrix represents the network with (m
++c) classes with ‘m’ previously existing classes and ‘c’ new classes.
+STEP 5: The hidden layer output vector hk+1 is calculated.
+STEP 6: The output weight matrix of increased dimension to facilitate learning of new class is updated based on the RLS algorithm as,
+
+M_(k+1)= M_k- ?M_k h_(k+1)^T (I+ h_(k+1) M_k h_(k
++1)^T )?^(-1) h_(k+1) M_k
+(47)
+
+?_(k+1)= ?_k+ M_(k+1) h_(k+1)^T (t_(k+1)- h_(k+1) ?_k )
+(48)
+      Whenever a new class(es) are encountered,the training resume learning the new class
+/classes by retaining the existing knowledge.The algorithm also supports recalibration with multiple new classes introduced simultaneously and sequentially.Also,the new classes can be introduced at any instant of time and any number of times to the network.
+      The algorithm of the progressive learning technique (PLT) is summarized in flow chart given in Figure 6.1.
+
+ 
+Figure 6.1: Flowchart of Algorithm 4 (Progressive Learning Technique for Multi-class Classification)
+6.2	 Experimentation 
+      Proposed progressive learning algorithm exhibit “dynamic” learning of new class of data.Current multiclass classification algorithms fails to adapt when encountered with new class and hence the accuracy drops when introduced with one or more new classes.The proposed algorithm redesigns itself to adapt to new classifications and still retaining the knowledge learnt thus far.
+      The proposed progressive learning algorithm is tested with several real world and standard datasets.The standard datasets are in general uniformly distributed.But to test the performance of progressive learning effectively,it should be presented with conditions where new classes are introduced in a non – uniform manner at different time instants.Hence the standard datasets cannot be used directly to test the progressive learning algorithm efficiently.The datasets should be in such a way that only a subset of classes is available for training initially and new classes should be introduced at arbitrary time instances during the latter part of training.Thus,some of the standard datasets are modified and used for testing the proposed algorithm.
+      By default,classification problems involve two classes: 1.Presence of class and 2.Absence of class.These are the two trivial classes that are available in any of the classification problem.Since the minimum number of classes in a classification is two,learning of new classes is absent in bivariate datasets.For binary classification datasets,since there are only two classes and no new classes are introduced,the proposed algorithm performs similar to the existing online sequential algorithm.The unique feature of progressive learning is clearly evident only in multiclass classification.
+      Thus the proposed algorithm is tested with multiclass classification datasets such as iris,balance scale,waveform and character datasets.The specifications of the datasets are shown in Table 6.1.
+      The proposed technique is experimented with both balanced and unbalanced datasets.Balanced dataset is one in which each of the class has equal or almost equal number of training data.Unbalanced dataset is a skewed dataset where a subset of classes has a high number of training samples and other classes have fewer training samples.
+      The proposed algorithm also works for introduction of multiple new classes.The number of classes can be increased from 2 to 3,and then from 3 to 4 and 4 to 5 and so on.For testing multiple new classes,the proposed method is tested with character recognition dataset which is described in the latter part of this section.The introduction of multiple classes both sequentially and simultaneously at multiple time instances are experimented and verified.
+
+
+
+
+
+
+
+Table 6.1.Specifications of Multi-class Classification Datasets
+Dataset
+Number of classes
+Number of features
+/attributes
+Remarks
+Iris dataset
+3
+4
+Basic benchmark dataset
+Balance scale dataset
+3
+4
+Benchmark dataset for unbalanced data
+Waveform dataset
+3
+21
+Basic benchmark dataset
+Wine dataset
+3
+13
+Basic benchmark dataset
+Satellite image dataset
+6
+36
+Basic benchmark dataset
+Digit dataset
+10
+64
+Basic benchmark dataset
+Character dataset 1
+4
+17
+Dataset for sequential introduction of two new classes
+Character dataset 2
+5
+17
+Dataset for sequential introduction of three new classes
+Character dataset 3
+5
+17
+Dataset for simultaneous introduction of new classes
+6.3 Results and Discussions
+6.3.1 Functionality
+The proposed technique is experimented with iris,waveform and balance scale datasets to verify the basic intended functionality of the technique.The iris dataset consists of three classes which are uniformly distributed over the 150 instances.To facilitate testing of progressive learning,the dataset is redistributed such that first 50 samples consists of only two classes (sentosa,versicolor) and the third class (virginica) is introduced only after the 51st sample.This type of redistribution closely emulates the real time scenario of encountering a new class on the run.The ability of the proposed algorithm to recognize,adapt and learn the new class can be verified by this testing.The distribution details of the dataset used is given in Table 6.2.
+Table 6.2.Specifications of Iris Dataset
+Data range
+Number of classes
+New class added
+Point of introduction of new class
+Class labels
+1–50
+2
+-
+-
+Sentosa
+Versicolor
+50–150
+3
+1
+51
+Sentosa
+Versicolor
+Virginica
+ 
+Figure 6.2.Testing Accuracy in Iris Dataset
+            The same procedure is repeated for waveform and balance scale dataset.The dataset specifications of the waveform and balance scale dataset are shown in Table 6.3-6.4.The result obtained by the progressive learning method is shown in Figures 6.3-6.4 respectively.
+
+
+
+Table 6.3.Specifications of Waveform Dataset
+Data range
+Number of classes
+New class added
+Point of introduction of new class
+Class labels
+1–1500
+2
+-
+-
+Waveform 1
+Waveform 2
+1501–3000
+3
+1
+1501
+Waveform 1
+Waveform 2
+Waveform 3
+ 
+Figure 6.3.Testing Accuracy in Waveform Dataset
+
+Table 6.4 Specifications of Balance Scale Dataset
+Data range
+Number of classes
+New class added
+Point of introduction of new class
+Class labels
+1–350
+2
+-
+-
+Left
+Right
+351–1100
+3
+1
+351
+Left
+Right
+Balanced
+
+ 
+Figure 6.4.Testing Accuracy of Balance-scale dataset
+      From the test results,the expected behavior of the progressive learning method is verified.The result shows that the algorithm is able to learn new classes dynamically on the run and the learning of new class does not significantly affect the accuracy of the classes previously learnt.The consistency and performance of the proposed method is evaluated using six benchmark datasets.
+6.3.2	Consistency 
+      Consistency is a critical characteristic to be tested for any new technique.The proposed technique is verified for its consistency in its results.Consistency is a key virtue that any technique should exhibit.The learning technique which provides inconsistent results is not reliable for practical applications.Being an ELM based technique,the input weights and the hidden layer bias values are initialized at random.Hence multiple executions of the same dataset and same specification results in different results.Therefore,the same dataset with same specification is executed multiple times to determine the consistency across multiple executions.The consistency results of repeated multiple executions of the three datasets are shown in Table 6.5.
+      
+      
+      
+      
+      
+Table 6.5 Consistency: Across Multiple Trials (10 Trials)
+
+Testing Accuracy (%)
+Iris Dataset
+99.4 ± 0.9660
+Waveform Dataset
+83.9 ± 1.2589
+Balance Scale Dataset
+91.6 ± 1.0557
+Wine Dataset
+97.9 ± 0.9285
+Satellite Image Dataset
+89.6 ± 1.1640
+Digit Dataset
+97.1 ± 0.7854
+      Cross validation is the most common method to evaluate the consistency of any given technique.The proposed algorithm is tested with each of the datasets for 5-fold cross validation (5-fcv) and 10-fold cross validation (10-fcv) and the resulting testing accuracy is tabulated.TABLE 6 gives the consistency of the proposed algorithm for cross validation performance.It can be seen from the table that the proposed algorithm is consistently accurate in each of the attempts.The deviation of the testing accuracy is in order of about 1 % from the mean value which is nominal.Thus,the results show that the proposed method gives consistent and reliable testing accuracy for both balanced and unbalanced datasets.
+      
+      
+Table 6.6 Consistency: 5-Fold Cross Validation and 10-Fold Cross Validation
+
+5-fcv
+10-fcv
+Iris Dataset
+99 
+± 1.0954
+99.4 
+± 1.0544
+Waveform Dataset
+84.1 
+± 1.2589
+83.6 
+± 1.3658
+Balance Scale Dataset
+91.8 
+± 1.0557
+91.2 
+± 1.3847
+Wine Dataset
+97.5 
+± 1.5376
+97.9 
+± 1.4625
+Satellite Image Dataset
+89.4 
+± 1.4618
+89.8 
+± 1.5537
+Digit Dataset
+97.2 
+± 1.0441
+96.9	± 1.0683
+
+6.3.3 Computational Reduction
+      The number of computations required for the proposed progressive learning technique is analyzed and compared with the existing OS-ELM method.Though learning of new classes dynamically on the run causes overhead to the computations and seemingly increases the complexity of the technique,the actual computational complexity of the proposed technique is lesser than the OS-ELM method.The decrease in complexity is due to two reasons.
+1.	The overhead computations responsible for increasing the number of output neurons,creating new interconnections and recalibration of weights occur only during the samples when a new class is introduced.Thus,the recalibration routine is invoked only when there is a new class,henceforth causing minimal increase in the computation complexity.For example,when only one new class is introduced,the recalibration procedure is invoked only once.
+2.	The progressive learning method also provides another distinct advantage.Since the new classes are learnt dynamically,it results in lesser number of weight calculations when compared with other static online sequential training techniques like OS-ELM.
+       
+Figure 6.5.Comparison of Computational Reduction
+Table 6.7 Reduction in Number of Calculations by the Proposed Method
+
+No.of weight calculations in OS-ELM (*nHidden)
+Point of introduction of new class
+No.of weight calculations in proposed method   (*nHidden)
+% of calculations saved
+Iris dataset
+150 * 3
+51
+(50 * 2) + (100 * 3)
+11.11 %
+Waveform dataset
+3000 * 3
+1501
+(1500 * 2) 
++ (1500 * 3)
+16.67 %
+Balance scale dataset
+1100 * 3
+351
+(350 * 2) + (750*3)
+10.61 %
+Wine dataset
+120*3
+71
+(70 * 2) + (50 * 3)
+19.44 %
+Satellite image dataset
+4500 * 6
+3001
+(3000 * 5) 
++ (1500 * 6)
+11.11%
+Digit dataset
+4000 * 10
+3001
+(3000 * 9) 
++ (1000 * 10)
+7.5 %
+      Though the new classes are learnt only from halfway through the datasets,the testing accuracy of the algorithm is nearly maintained or even improved when compared to algorithms with a static number of classes.The reason for the change in accuracy is due to the fact that new classes are learnt on the run after the learning of previous classes.If the previously learnt classes and the new class are fairly distinctive the learning accuracy will be improved.On other hand,in some cases due to the feature set of the learnt class and new class,the learning of the new class will affect the existing knowledge but only to a little extent thereby marginally reducing the overall accuracy.
+      The testing accuracy of the proposed algorithm is compared with the existing OS-ELM and its variants such as voting based OS-ELM (VOS-ELM),enhanced OS-ELM (EOS-ELM),robust OS-ELM (ROS-ELM),robust bayesian ELM (RB-ELM) and generalized pruning ELM (GP-ELM) and is tabulated as shown in TABLE 8.It can be seen from the table that despite learning the new classes dynamically at a later stage of training,the testing accuracy is either improved or maintained nearly equal to the testing accuracy of the OS-ELM based methods.But the proposed method provides two key advantages over the existing methods.
+1.	Reduction in computational complexity.
+2.	Flexibility to learn new classes at any instant of time.
+From the results obtained thus far,it is evident that the proposed progressive learning algorithm learns new class of data in a dynamic way.
+
+Table 6.8 Comparison of Testing Accuracy (%)
+
+OS-ELM
+VOS-ELM
+EOS-ELM
+ROS-ELM
+RB-ELM
+GP-ELM
+Proposed method
+IRIS dataset
+98
+99.2
+100
+100
+100
+100
+100
+Waveform dataset
+84.2
+84.8
+84.6
+85.1
+84.3
+84.7
+83.9
+Balance scale dataset
+90.7
+91.1
+90.8
+    91.4
+90.9
+91.3
+91.6
+Wine dataset
+97.2
+97.5
+97.4
+98.0
+97.1
+97.6
+97.9
+Satellite image dataset
+88.9
+89.2
+89.0
+89.1
+89.5
+89.8
+89.6
+Digit dataset
+96.6
+96.8
+96.5
+96.9
+97.1
+97.3
+97.1
+
+6.3.4 Introduction of New Class at Different Time Instants
+      Table 6.9.Point of Introduction of New Class
+Test cases
+Point of introduction of new class (Total number of samples 
+= 150)
+Very Early
+6
+In the Middle
+71
+Towards the End
+131
+  
+ 
+Figure 6.6: Introduction of New Class in Training (a) Very Early,(b) In the Middle and (c) Towards the End
+6.3.5 Multiple New Classes
+      The performance of the proposed technique when introduced with multiple new classes both sequentially and simultaneously is discussed in this section.Learning of multiple new classes by the proposed algorithm is tested by using the Character recognition dataset.Several combinations of tests are made such as
+1.	Sequential introduction of 2 new classes (4 classes)
+2.	Sequential introduction of 3 new classes (5 classes)
+3.	Simultaneous introduction of 2 new classes along with one new class sequentially (5 classes)
+The performance of the proposed algorithm on each of the test case is observed.
+Sequential Introduction of 2 new classes
+Character dataset with 4 classes (A,B,C and D) is used to test the sequential introduction of two new classes in the proposed algorithm.The dataset is redistributed to meet the testing requirements for progressive learning.The specifications of the dataset are given in Table 6.10.
+
+
+
+
+Table 6.10 Specifications of Character Dataset for 2 New Classes
+Data range
+Number of classes
+New class added
+Class labels
+1 – 800
+2
+-
+A and B
+801 – 1600
+3
+C
+A,B and C
+1601 – 3096
+4
+D
+A,B,C and D
+      
+      Initially the network is sequentially trained with only two classes A and B up to 800 samples.A new class ‘C’ is introduced to the training data in the 801st sample and a fourth class ‘D’ is introduced as 1601st sample.The proposed algorithm identifies both the new classes and recalibrates itself each time and continues learning.This results in two sudden rise in the learning curve of the network.The first rise corresponding occurring at 801st sample corresponds to the learning of class ‘C’ and the second rise occurring at 1601st sample corresponds to learning of class ‘D’.The learning curve graph is shown in Fig.7.
+ 
+Figure 6.7.Sequential Learning of Two New Classes
+Sequential introduction of 3 new classes
+      Character dataset with 5 classes (A,B,C,D and E) is used for testing sequential introduction of 3 new classes.The network is initially trained to recognize only two classes.Three new classes (C,D and E) are introduced one after another after the initial training of two classes.The specifications of the dataset are shown in Table 6.11.
+      
+      
+      
+      
+Table 6.11 Specifications of Character Dataset for 3 New Classes
+Data range
+Number of classes
+New class added
+Class labels
+1 – 800
+2
+-
+A and B
+801 – 1600
+3
+C
+A,B and C
+1601 – 2000
+4
+D
+A,B,C and D
+2001 – 3850
+5
+E
+A,B,C,D and E
+
+      Each of the new classes is introduced sequentially at later time instants and the algorithm adapts to new class each time and also maintains the testing accuracy at the same level.The testing accuracy curve is shown in Figure 6.8.
+      To verify that learning of each new class is independent of previously learnt classes,the overall testing accuracy is broken down into individual testing accuracy of each of the classes and is shown in Fig.9.It can be seen that,the testing accuracy of each of the classes remains over 90%.Also,whenever a new class is introduced,a new learning curve is formed which contributes towards the overall accuracy along with the existing classes.
+      The network is initially trained with two classes A and B.Third class C is introduced after 800 samples and the learning curve of the class C is shown in black line.Another new class ‘D’ who’s testing accuracy as shown in red is introduced after the 1600 sample.A fifth class,‘E’ is introduced in the 2001st sample and its learning curve is shown in light blue.
+      From the graph it can be seen that each class introduced is learnt anew without affecting much the existing knowledge.The learning accuracy of each of the classes is collectively responsible for the overall accuracy of the network.Further,it can be seen that the testing accuracy of each of the classes is over 90% and the overall accuracy of 94% is achieved.
+ 
+Figure 6.8.Sequential Learning of Three New Classes
+ 
+Figure 6.9: Individual and Overall Testing Accuracy – Sequential Introduction
+      The testing accuracy obtained by introducing one,two and three new classes is summarized in Table 6.12.
+      From the table it can be observed that learning of multiple new classes does not affect the testing accuracy of previously learnt class.Hence this method can be used to learn a large number of multiple new classes in a progressive manner without affecting the testing accuracy of previously learnt classes.
+
+
+
+Table 6.12 Summary of Testing Accuracy for Sequential Introduction of Multiple New Classes
+Number of classes introduced sequentially
+Testing Accuracy
+Two base class + One new class
+93.8 %
+Two base class + Two new classes
+93.7 %
+Two base class + Three new classes
+94	
+
+Simultaneous introduction of new classes
+      To verify that the proposed algorithm performs effectively when multiple classes are introduced simultaneously (introduced in the same block),character dataset with specifications as shown in Table 6.13 is used.Here,the two classes C and D are introduced together and the new class E at a later stage.  The testing accuracy is shown in Figure 6.10.
+Table 6.13 Specifications of Character Dataset for Simultaneous New Classes
+Data range
+Number of classes
+New class added
+Class labels
+1 – 800
+2
+-
+A and B
+801 – 2000
+4
+C,D
+A,B,C and D
+2001 – 3850
+5
+E
+A,B,C,D and E
+       
+Figure 6.10.Testing Accuracy for Simultaneous New Classes
+ 
+Figure 6.11.Individual and Overall Testing Accuracy - Simultaneous New Classes
+    The proposed algorithm introduces new neurons in the output layer and recalibrates the network by itself to facilitate learning of new classes.Since only the output layer neurons are increased and the number of hidden layer neurons is the same,the learning of new classes that can be progressively learnt is limited by the number of classes that can be learnt by the given number of hidden layer neurons.Further,the proposed algorithm can be extended such that both the output neurons and hidden layer neurons are increased such that any number of new classes can be learnt progressively.
+    
+    
+6.4	Summary
+    In this chapter,a novel learning technique of progressive learning for multi-class classification is developed.Progressive learning enables the network to learn multiple new classes dynamically on the run.The new classes can be learnt in both sequential and simultaneous manner.Hence this technique is much suited for applications where the number of classes to be learned is unknown.Progressive learning enables the network to recalibrate and adapt when encountered with a new class of data.The proposed progressive learning technique will perform effectively in applications such as cognitive robotics where the system is trained by real time experienced based data.
+
+
+
+
+
+
+
+Chapter 7
+Progressive Learning – Multi-label Classification
+      7.1 Proposed Algorithm
+      Progressive learning technique for multi-label classification is an extension of the previous works on online multi-label classifier and progressive learning technique for multi-class classification.In multi-label classification,each of the input samples is associated with a subset of target labels.Therefore,it is essential to determine both the number of labels and the identity of labels corresponding to an input sample.The various steps of the proposed algorithm are: 
+Initialization of Parameters
+Fundamental parameters such as the number of hidden layer neurons and the activation function are initialized.Sigmoidal activation function is used for the experimentation.The problem of overfitting is tackled by using the early stopping technique.In early stopping technique,the point at which the training accuracy increases at the expense of generalization error is identified and further training is stopped.The number of hidden neurons are selected depending upon the nature and complexity of the dataset while preventing the overfitting of data.
+
+Processing of Inputs 
+      ELM Training
+      The processed input is then supplied to the online sequential variant of ELM technique.Let H be the hidden layer output matrix,? be the output weights and Y be the target label,the ELM can be represented in a compact form as H? 
+= Y where Y?L,L 
+= {?1,?2,….,?m}.During the training phase,Let N0 be the number of samples in the initial block of data that is provided to the network.The initial output weight ?0 is calculated from equation 9 and 10.
+? = H+Y and H+ = (HTH)-1HT,
+Consider M0 = (H0TH0)-1,therefore,?0 = M0H0TY0.
+      The subsequent data that arrives to the network can be trained either on one-by-one or chunk-by-chunk basis.Let ‘b’ be the chunk size.Unity value for b results in training the network on one-by-one basis.
+When a new data sample
+/chunk of data is arrived,it can fall into either of the two categories.
+i.	Absence of new class of data
+ii.	Presence of new class / classes of data
+   If there are no new labels in the current set of data,the PLT for multi-label classification is similar to OSML-ELM and the usual process of calculating and updating the output weights is performed.The subsequent algorithm steps for the case of no new classes in current chunk of data are as follows.
+The hidden layer output vector hk+1 is calculated.
+The output weight is updated based on the RLS algorithm as discussed in earlier chapter.If there are new labels in the chunk of data arrived,the progressive learning technique is used to recalibrate the network to accommodate new labels by retaining the previously learnt knowledge.
+      Similar to progressive learning for multi-class classification,whenever the network encounters new labels,the special recalibrate routine is initiated.In the recalibration routine,the number of new labels introduced is determined.Let ‘c’ be the number of new labels being introduced.The neural network is redesigned with the number of output neurons increased accordingly and the interconnections redone.The weights of the new network are determined from the current and the previous weights of the old network.
+      Consider there are N’ hidden layer neurons in the network,m labels of data are currently learnt by the network and b be the chunk size of the sequential learning.The introduction of ‘c’ new classes at any instant k
++1,will modify the dimensions of the output weight matrix ? from ?N’Xm to ?N’Xm
++c.
+      The output weight matrix ? is of critical importance in ELM based networks.Since the input weights and the hidden layer bias are randomly assigned,the values in the ? matrix control the number of classes learnt and the accuracy of each class.The ELM Training continues as follows.
+      The values of ?N’Xm
++c are calculated based on the current values of ?N’Xm,(hk)bXN’ and (Mk)N’XN’.
+      The current ? matrix is of the dimension (?_k )_(N^' Xm) and ‘c’ new labels are introduced.Therefore,to accommodate the output weight matrix for the increased number of output layer neurons,the ? matrix is transformed to (?_k ) ? as given in equation.
+
+(?_k ) ?= (?_k )_(N^' Xm)   I_(mXm+c)
+(49)
+where I_(mXm+c) is a rectangular identity matrix of dimension m X m+c.
+
+(?_k ) ?_(N'Xm+c)
+= (?_k )_(N^' Xm)   [?(?(1&0&…@0&1&…@?(0@0)&?(0@0)&?(…@…))&?(0@0@?(0@0)))]_(mXm
++c)
+(50)
+
+(?_k ) ?_(N'Xm+c)= [?((?_k )_(N^' Xm)&O_N'Xc )]_(N'Xm+c)
+(51)
+where  O_N'Xc is zero matrix.
+      From equation 18,it can be seen that,the error difference between the target class t_(k
++1) and the predicted class h_(k
++1) ?_k is scaled by a learning factor and is added to ?_k.Since ‘c’ new labels are introduced only at the k
++1th time instant,for the initial k data samples,the target label value corresponding to the new labels are -1.Therefore,the k-learning step update for the ‘c’ new labels ((
+????_k )_N'Xc) can be written as,
+
+(????_k )_N'Xc= (M_k )_N'XN'  (h_k^T )_N'Xb  [?(-1&?&-1@?&
+?&?@-1&?&-1)]_bXc
+(52)
+
+(????_k )_N'Xc= ?-(M_k )?_N'XN'  (h_k^T )_N'Xb  J_bXc
+(53)
+where J_bXc is an all-ones matrix.
+
+J_bXc=  [?(1&?&1@?&?&?@1&?&1)]_bXc
+(54)
+      The k-learning step update for the new labels is then incorporated with the (?_k ) ?_(mXm
++c) to provide the upgraded (?_k )_(N^' X(m
++c) ) matrix which is recalibrated to adapt learning ‘c’ new labels.
+
+(??? ??_k )_(N^' Xm+c)
+= [?(O_N'Xm&?-(M_k )?_N'XN'  (h_k^T )_N'Xb  J_bXc )]
+(55)
+The recalibrated output weight matrix (?_k )_(N^' X(N'+c) ) is calculated as,
+
+(?_k )_(N^' X(m+c) )= (?_k ) ?_(N'Xm+c)+ (??? ??_k )_(N^' Xm
++c)
+(56)
+
+Upon simplification,(?_k )_(N^' X(N'+c) ) can be expressed as,
+
+(?_k )_(N^' X(m+c) )= ?[ (?_k )?_(N^' Xm)      (????_k )_N'Xc  ]
+(57)
+(?_k )_(N^' Xm) represents the knowledge previously learnt.The dimension of ? is increased from m to m
++c.As opposed to populating the increased dimension with identity matrix values,the new entries (
+????
+_k )_N'Xc   are calculated in such a way that the newly introduced labels will appear to the neural network as if they are present from the beginning of the training procedure and the training data samples thus far does not belong to the newly introduced labels.
+      The network is recalibrated such that the (????
+_k )_N'Xc  matrix represents the learning of the new labels from the beginning of the training phase to the current data sample considering that none of the previous data samples belong to the newly introduced class.i.e.The (
+????
+_k )_N'Xc is computed which is equivalent to the k-learning step equivalent of the ‘c’ new labels from the beginning of the training phase.
+Therefore the updated (?_k )_(N^' X(m
++c) ) matrix represents the network with (m
++c) classes with ‘m’ previously existing classes and ‘c’ new labels.
+The hidden layer output vector hk+1 is then calculated.
+The output weight matrix of increased dimension to facilitate learning of new labels is updated based on the RLS algorithm as discussed earlier.
+
+ELM Testing
+In the testing phase,the test data sample is evaluated using the values of ? obtained during the training phase.The input data that can be a combination of Boolean,discrete and continuous data type is given to the network.The network then computes Y 
+= H?.The predicted output Y obtained is a set of real numbers of dimension equal to the number of labels.
+Post-processing and Multi-label Identification 
+            Setting the threshold value is of critical importance.The threshold value is selected such that it maximizes the difference between the category of labels to which the sample belongs to and the category of labels to which the sample does not belong to with respect to the raw output values Y obtained during the training phase.The distribution of the raw output values of Y for categories of labels that the input sample belongs to (YA) and the categories of labels the input sample does not belong to (YB) are identified.Based on the distribution of YA and YB,a threshold value is identified using the formula,
+
+Threshold value = (min(YA) + max(YB))/2
+(58)
+      Algorithm 5: Proposed Progressive Multi-label Classification Algorithm 
+12.	The parameters of the network are initialized
+13.	The raw input data is processed for classification
+14.	ELM Training – Initial phase
+Processing of initial block of data
+M0 = (H0TH0)-1
+?0 = M0H0TY0
+15.	ELM Training – Sequential phase
+Case 1: No new labels are introduced:
+M_(k+1)= M_k-  (M_k h_(k+1) h_(k+1)^T M_k)/(1+h_(k
++1)^T M_k h_(k+1) )
+?_(k+1)= ?_k+ M_(k+1) h_(k+1) (Y_(k+1)^T-h_(k+1)^T ?_k )
+Case 2: ‘c’ new labels are introduced:
+(?_k )_(N^' X(m+c) )= ?[ (?_k )?_(N^' Xm)      (????_k )_N'Xc  ]
+(????_k )_N'Xc= (M_k )_N'XN'  (h_k^T )_N'Xb  [?(-1&?&-1@?&?&
+?@-1&?&-1)]_bXc
+M_(k+1)= M_k-  (M_k h_(k+1) h_(k+1)^T M_k)/(1+h_(k
++1)^T M_k h_(k+1) )
+?_(k+1)= ?_k+ M_(k+1) h_(k+1) (Y_(k+1)^T-h_(k+1)^T ?_k )
+
+16.	ELM Testing
+Estimation of raw output values using Y = H?
+17.	Post-processing and Multi-label identification
+Applying the threshold value based on separation between two categories of labels (YA and YB).Threshold value 
+= (min(YA) + max(YB))/2
+Identifying the number of labels corresponding to input data sample
+Identifying the target class labels for the input data sample
+
+7.2 Experimentation
+      As discussed in Chapters 3 and 4,Multi-label datasets have a unique property called the degree of multi-labelness.Not all datasets are equally multi-labelled.Therefore,we use LC and LD to quantitatively measure the degree of multilabelness for each dataset.The proposed method is experimented with four benchmark datasets comprising of different application areas such as multimedia,text,and biology.The specifications of the datasets are given in table.Since,the datasets are discussed in detail in the previous chapters,they are not restated.Multiple new labels are introduced in each datasets at multiple time instances.
+Table 7.4.Dataset Specifications
+Dataset
+Domain
+No.of Features
+No.of Samples
+No.of Labels
+Label Introduction Pattern
+LC
+LD
+Yeast
+Biology
+103
+2417
+14
+12 + 2
+4.24
+0.303
+
+
+
+
+
+10 + 1 + 3
+
+
+Scene
+Multimedia
+294
+2407
+6
+5 + 1
+1.07
+0.178
+
+
+
+
+
+4 + 1 + 1
+
+
+Corel5k
+Multimedia
+499
+5000
+374
+373 + 1
+3.52
+0.009
+
+
+
+
+
+368 + 2 + 1 
++ 1 + 2
+
+
+Medical
+Text
+1449
+978
+45
+44 + 1
+1.25
+0.027
+
+
+
+
+
+39 + 2 + 2 + 1 
++ 1
+
+
+
+
+
+
+
+38 + 3 + 4
+
+
+
+7.3 Results and Discussion
+      The developed technique is evaluated for functionality,consistency,performance metrics and speed.The functionality check is performed in order to verify the progressive learning feature of the technique.The hamming loss metric is continuously monitored to evaluate the functionality of the technique.Any newly developed technique should provide consistent results across multiple trials.Therefore 5 fold and 10 fold cross validation is used to determine the consistency of the proposed method.Also,various performance metrics and the training time and testing time of the developed technique are evaluated and analysed.
+7.3.1 Functionality
+The proposed technique is experimented with scene,corel5k and medical datasets to verify the progressive learning functionality.The dataset is redistributed so that one or multiple new labels are introduced at multiple time instances.Hamming loss is a key performance metric to evaluate the testing accuracy of multi-label classification.It gives the fraction of wrong labels to the right labels.Therefore,by continuously monitoring the hamming loss value,the functionality of the progressive learning technique can be verified.Whenever a new label is introduced to the network,learning resumes and the newly introduced labels are learnt by retaining the knowledge of previously learnt labels.This results in a significant “dip” in the hamming loss value.
+The proposed technique is first experimented with scene dataset.The dataset has a total of 6 labels.The samples in the dataset are redistributed such that new labels are introduced at later stage.The dataset with the label introduction pattern (5 
++ 1) is used to evaluate the progressive learning functionality of the proposed technique.The hamming loss measure is monitored continuously and is plotted.The individual hamming loss of the newly introduced class is evaluated separately and plotted overlapping to the overall hamming loss as shown in the Figure 7.1.
+
+ 
+ 
+Figure 7.1: Hamming Loss Plot for Scene (5+1) Dataset
+From the figure it can be seen that,a significant dip occurs in the hamming loss metric whenever a new label is introduced to the network.This is the direct consequence of the network restructuring itself automatically and learning the newly introduced label thus verifying the progressive learning feature of the proposed method.The same procedure is repeated for medical dataset.Medical dataset has 45 labels and the dataset is redistributed to have the label introduction pattern (39
++2+2+1+1).The hamming loss curve is plotted as shown in Figure 7.2.
+ 
+Figure 7.2: Hamming Loss Plot for Medical (39+2+2+1+1) Dataset
+      From the figure it is evident that,the hamming loss significantly decreases every time a new label is introduced.This proves that the proposed technique learns multiple new labels being introduced at multiple time instances on the run.Finally,the proposed technique is experimented with corel5k dataset with label introduction pattern of (368
++2+1+1+2).The results obtained are shown in Figure 7.3.
+ 
+Figure 7.3.Hamming Loss Plot for Corel5k (368+2+1+1+2) Dataset
+From the test results,the expected behaviour of the progressive learning method is verified.The result proves that the developed algorithm is capable of learning multiple new labels dynamically on the run by retaining the knowledge of previously learnt labels.
+7.3.2 Consistency
+Consistency is a key feature that is essential for any new technique proposed.Any technique proposed should provide consistent results for multiple trials with minimal variance.The consistency of a technique can be identified using cross-validation procedure.Therefore,a 5-fold cross validation and a 10-fold cross validation is performed on the proposed technique for different combinations of label introduction pattern on different datasets.The hamming loss performance metric is used to quantitatively measure the correctness of the classifier.The results are tabulated in Table 7.2.
+Table 7.2: Consistency
+Dataset
+Label introduction pattern
+Hamming loss
+5-fcv
+Hamming loss
+10-fcv
+Yeast
+12 + 2
+0.196 ± 0.001
+0.195 ± 0.002
+Yeast
+10 + 1 + 3
+0.198 ± 0.001
+0.199 ± 0.001
+Scene
+5+1
+0.104 ± 0.002
+0.106 ± 0.001
+Scene
+4+1+1
+0.139 ± 0.002
+0.140 ± 0.002
+Medical
+44+1
+0.012 ± 0.001
+0.011 ± 0.001
+Medical
+39+2+2+1+1
+0.016 ± 0.001
+0.016 ± 0.001
+Medical
+38+3+4
+0.023 ± 0.001
+0.022 ± 0.002
+Corel5k
+373+1
+0.010 ± 0.000
+0.009 ± 0.000
+Corel5k
+368+2+1+1
++2
+0.010 ± 0.002
+0.010 ± 0.001
+
+7.3.3 Performance Metrics
+      Due to the possibility of the partial correctness of the classifier result,one specific metric will not be sufficient to quantitatively measure the performance of a technique.Therefore,a set of quantitative performance evaluation metrics is used to validate the performance of the multi-label classifier.The performance metrics used are hamming loss,accuracy,precision,recall and F1-measure.The performance metrics of the proposed technique for each of the dataset and label introduction pattern are evaluated and shown in Table 7.3.
+Table 7.3: Performance Metrics 
+Dataset 
+Label introduction pattern 
+Hamming loss 
+Accuracy 
+Precision 
+Recall 
+F1 measure 
+Yeast
+12+2
+0.196
+0.495
+0.685
+0.583
+0.634
+Yeast
+10+1+3
+0.198
+0.492
+0.679
+0.578
+0.629
+Scene 
+5+1 
+0.104 
+0.609 
+0.627 
+0.659 
+0.643 
+Scene 
+4+1+1 
+0.139 
+0.569 
+0.584 
+0.699 
+0.636 
+Medical 
+44+1 
+0.012 
+0.693 
+0.740 
+0.729 
+0.734 
+Medical 
+39+2+2
++1+1 
+0.016 
+0.653 
+0.695 
+0.731 
+0.712 
+Medical 
+38+3+4 
+0.023 
+0.585 
+0.622 
+0.739 
+0.675 
+Corel5k 
+373+1 
+0.010 
+0.057 
+0.164 
+0.059 
+0.087 
+Corel5k 
+368+2+1
++1+2 
+0.010 
+0.055 
+0.151 
+0.062 
+0.088 
+
+7.3.4 Execution Speed
+The performance of the proposed method in terms of execution speed is evaluated by the training time and the testing time of the algorithm used.The training and testing time taken by the proposed method for the aforementioned datasets with different label introduction patterns is tabulated as given in Table 7.4.
+Table 7.4: Speed
+Dataset 
+Label introduction pattern 
+Train time 
+Test time 
+Yeast
+12+2
+0.113
+0.015
+Yeast
+10+1+3
+0.115
+0.012
+Scene 
+5+1 
+2.266 
+0.042 
+Scene 
+4+1+1 
+2.291 
+0.080 
+Medical 
+44+1 
+0.604 
+0.025 
+Medical 
+39+2+2+1+1 
+0.611 
+0.034 
+Medical 
+38+3+4 
+0.614 
+0.027 
+Corel5k 
+373+1 
+5.348 
+0.044 
+Corel5k 
+368+2+1+1
++2 
+5.396 
+0.056 
+
+      From the table it can be seen that the proposed method has very high execution speed.The proposed technique exploits the inherent high speed nature of the extreme learning machine to perform classification at very high speed.
+7.4 Summary
+      The proposed progressive multi-label classifier is the first of its kind.It can be used for online
+/streaming data applications with known number of labels as well as for real world real-time applications with dynamic and unknown number of labels.From the results it can be seen that the proposed method shows high speed and high performance metric for all the datasets used for verification and for different patterns of introduction of new labels.
+
+
+
+
+
+
+
+Chapter 8
+Progressive Learning – Universal Classifier
+      Progressive learning is the next stage of advancement to the online learning methods.Existing online sequential techniques only learn to classify data among a fixed set of classes which are initialized during the initialization phase of the algorithm.They fail to dynamically adapt when introduced to new class
+/classes on the run.The progressive learning technique is independent of the number of class constraint and it can learn several new classes on the go by retaining the knowledge of previous classes.This is achieved by modifying the network structure by itself upon encountering a new class and updating the network parameters in such a way that it learns the new class and retains the knowledge learnt thus far.
+            In this chapter,the progressive learning technique will be integrated with the universal classifier to achieve human-learning-inspired progressively learning universally generic classifier.  The resulting new classifier can be used for any type of classification problem and any number of dynamic class constraints.The newly developed classifier having developed based on the extreme learning machine framework,exploits its inherent high speed training and testing.Experiments are conducted with datasets from all three classification types and various performance metrics are evaluated.
+8.1 Proposed Approach
+     The final outcome of the thesis,development of human learning inspired progressive learning multi-label classifier is developed by integrating the universal classifier from chapter 5 and progressive learning from chapter 6 and chapter 7.Being an universal classifier,the three key challenges to be addressed.
+4.	Identification of classification type
+5.	Estimating the number of target labels corresponding to each input sample
+6.	Identifying each of the associated target labels.
+The various steps involved in the proposed algorithm are summarized.
+Initialization Phase.  Initialization Phase involves setting up the fundamental network parameters for the target classification problem.Being an ELM based technique,the input weights and the bias values are randomly initialized.The number of hidden layer neurons and the activation function are assigned.The number of hidden layer neurons is to be selected such that the problem of overfitting is avoided.
+Training Phase.During the training phase,the data samples and the target labels are provided as the input and the output weight values are estimated iteratively by online training.The proposed method is based on the online variant of ELM.The online training phase has two steps.
+Initial Block Step: Let N0 be the number of training samples in the initial block of data,the initial output weight values are calculated ad discussed earlier.
+Sequential Training Step: Upon completion of the initial block step,the subsequent data samples arriving sequentially are processed in the sequential training step.The subsequent data that arrives to the network can be trained either on one-by-one or chunk-by-chunk basis.Let ‘b’ be the chunk size.Unity value for b results in training the network on one-by-one basis.
+When a new data sample
+/chunk of data is arrived,it can fall into either of the two categories.
+iii)	Absence of new class of data
+iv)	Presence of new class / classes of data
+Case (i) Absence of new class of data
+      If there are no new classes in the current set of data,the sequential training step is similar to online universal classifier and the usual process of calculating and updating the output weights is performed.The hidden layer output vector hk
++1 is calculated.Then,the output weight is updated based on the RLS algorithm discussed earlier.
+Case (ii) Presence of new class of data
+      Similar to online universal classifier from chapter 5,if there is a new class(es) in the chunk of data arrived,the progressive learning technique discussed in previous chapters is used to recalibrate the network and to accommodate learning of new class by retaining old knowledge.
+Consider there are N’ hidden layer neurons in the network,m classes of data are currently learnt by the network and b be the chunk size of the sequential learning.The introduction of ‘c’ new classes at any instant k
++1,will modify the dimensions of the output weight matrix ? from ?N’Xm to ?N’Xm
++c.The values of ?N’Xm
++c are calculated based on the current values of ?N’Xm,(hk)bXN’ and (Mk)N’XN’.The current ? matrix is of the dimension (?_k )_(N^' Xm) and ‘c’ new classes are introduced.Therefore,to accommodate the output weight matrix for the increased number of output layer neurons,the ? matrix is transformed to (?_k ) ? as given in equation.
+
+(?_k ) ?= (?_k )_(N^' Xm)   I_(mXm+c)
+(59)
+Where I_(mXm+c) is a rectangular identity matrix of dimension m X m+c.
+
+(?_k ) ?_(N'Xm+c)
+= (?_k )_(N^' Xm)   [?(?(1&0&…@0&1&…@?(0@0)&?(0@0)&?(…@…))&?(0@0@?(0@0)))]_(mXm
++c)
+(60)
+
+(?_k ) ?_(N'Xm+c)= [?((?_k )_(N^' Xm)&O_N'Xc )]_(N'Xm+c)
+(61)
+where  O_N'Xc is zero matrix.
+Upon extending the weight matrix to accommodate the increased number of output neurons,the learning learnt thus far has to be incorporated in the newly upgraded weight matrix.Appending zero matrix is a trivial way to increase the dimensions.The matrix values have to be updated such that the network retains the knowledge of existing classes and can learn new classes as if they were available from the beginning of the training phase.
+From equation 18,it can be seen that,the error difference between the target class t_(k
++1) and the predicted class h_(k
++1) ?_k is scaled by a learning factor and is added to ?_k.Since ‘c’ new classes are introduced only at the k
++1th time instant,for the initial k data samples,the target class label value corresponding to the new class is -1.Therefore,the k-learning step update for the ‘c’ new classes ((
+????_k )_N'Xc) can be written as,
+
+(????_k )_N'Xc= (M_k )_N'XN'  (h_k^T )_N'Xb  [?(-1&?&-1@?&
+?&?@-1&?&-1)]_bXc
+(62)
+
+(????_k )_N'Xc= ?-(M_k )?_N'XN'  (h_k^T )_N'Xb  J_bXc
+(63)
+where J_bXc is an all-ones matrix.
+
+J_bXc=  [?(1&?&1@?&?&?@1&?&1)]_bXc
+(64)
+The k-learning step update for the new classes is then incorporated with the (?_k ) ?_(mXm
++c) to provide the upgraded (?_k )_(N^' X(m
++c) ) matrix which is recalibrated to adapt learning ‘c’ new classes.
+
+(??? ??_k )_(N^' Xm+c)= [?(O_N'Xm&?-(M_k )?
+_N'XN'  (h_k^T )_N'Xb  J_bXc )]
+(65)
+The recalibrated output weight matrix (?_k )_(N^' X(N'+c) ) is calculated as,
+
+(?_k )_(N^' X(m+c) )= (?_k ) ?_(N'Xm+c)+ (??? ??_k )_(N^' Xm
++c)
+(66)
+Upon simplification,(?_k )_(N^' X(N'+c) ) can be expressed as,
+
+(?_k )_(N^' X(m+c) )= ?[ (?_k )?_(N^' Xm)      (????
+_k )_N'Xc  ]
+(67)
+(?_k )_(N^' Xm) represents the knowledge previously learnt.The dimension of ? is increased from m to m
++c.As opposed to populating the increased dimension with identity matrix values,the new entries (
+????
+_k )_N'Xc   are calculated in such a way that the newly introduced classes will appear to the neural network as if they are present from the beginning of the training procedure and the training data samples thus far does not belong to the newly introduced class.
+The network is recalibrated such that the (????
+_k )_N'Xc  matrix represents the learning of the new class from the beginning of the training phase to the current data sample considering that none of the previous data samples belong to the newly introduced class.i.e.The (
+????
+_k )_N'Xc is computed which is equivalent to the k-learning step equivalent of the ‘c’ new classes from the beginning of the training phase.
+Therefore the updated (?_k )_(N^' X(m
++c) ) matrix represents the network with (m
++c) classes with ‘m’ previously existing classes and ‘c’ new classes.
+The hidden layer output vector hk
++1 is calculated and the output weight matrix of increased dimension to facilitate learning of new class is updated based on the RLS algorithm as discussed earlier.
+Testing Phase.In the testing phase,the target output of the input samples is predicted using the values of ? estimated from the training phase and the input data samples.The raw output values of the network are evaluated using the relation Y 
+= H?.The raw output value obtained from the testing phase is then processed to address the three challenges of the universal classifier.
+Classification Phase.In the classification phase,the raw output values Y obtained from the training phase is used to predict the classification type,number of associated target labels and identifying each of the target labels corresponding to each input sample.
+Identifying the Classification Type: The classification type of binary,multi-class or multi-label is identified using the classification type (CT) value and dimension of output vector ‘l’.The CT value is evaluated using the equation.
+
+CT= | HS(Y)  |
+(68)
+where Y is the raw output vector and HS(x) is the heaviside function.Identification of classification type based on all possible valid combinations of CT and L is given in Table 8.1.
+Table 8.1: Identification of Classification Type
+CT 
+= 1
+L 
+= 2
+Binary Classification
+CT 
+= 1
+L 
+> 2
+Multi-class Classification
+CT 
+> 1
+L 
+> 2
+Multi-label Classification
+
+Estimating the Number of Target Labels: Upon establishing the classification type,the number of target labels is then estimated as given in Table 8.2.For binary and multi-class classification,the number of target labels is one,since each input belongs to unique target labels.For multi-label classification,the CT value corresponds to the number of target labels associated with the input data sample.
+Table 8.2: Estimation of Number of Target Labels
+Classification Type
+Number of Target Labels
+Binary Classification
+1
+Multi-class Classification
+1
+Multi-label Classification
+?_(i=1)^L?HS(Y_i ) 
+
+Algorithm 6: Proposed Progressive Learning Universal Classifier Algorithm
+18.	Initialization of parameters
+19.	Formatting input to uniform representation
+20.	Initial block training
+Input: Initial N0 samples of data in the form {(xi,yi)} 
+Output: ?0
+Evaluation:
+M0 = (H0TH0)-1       
+?0 = M0H0TY0
+21.	Sequential training
+Input: Sequentially arriving data blocks in the form {(xi,yi)}
+Output: ?k
+Evaluation:
+Case 1: No new labels are introduced:
+M_(k+1)= M_k-  (M_k h_(k+1) h_(k+1)^T M_k)/(1+h_(k+1)^T M_k h_(k
++1) )
+?_(k+1)= ?_k+ M_(k+1) h_(k+1) (Y_(k+1)^T-h_(k+1)^T ?_k )
+Case 2: ‘c’ new labels are introduced:
+(?_k )_(N^' X(m+c) )= ?[ (?_k )?_(N^' Xm)      (????_k )_N'Xc  ]
+(????_k )_N'Xc= (M_k )_N'XN'  (h_k^T )_N'Xb  [?(-1&?&-1@?&?&
+?@-1&?&-1)]_bXc
+M_(k+1)= M_k-  (M_k h_(k+1) h_(k+1)^T M_k)/(1+h_(k+1)^T M_k h_(k
++1) )
+?_(k+1)= ?_k+ M_(k+1) h_(k+1) (Y_(k+1)^T-h_(k+1)^T ?_k )
+22.	Evaluating raw output value Y
+Input: Data sample xi
+Output: Y
+Evaluation:
+Y = H?
+23.	Evaluating CT value: CT= | H(Y)  |
+24.	Identifying classification type based on CT and L
+25.	Evaluating number of associated target labels
+26.	Calculating the belongingness vector: B=H(Y)
+27.	Identifying the associated target labels
+28.	Evaluation of performance metrics corresponding to classification type
+
+Identifying the Target Labels: The target labels are identified using the belongingness vector.The belongingness vector B is given as,
+
+B = HS(Y)
+(69)
+where Y is the raw output value and HS(x) is Heaviside function.Each element of the vector B denotes the belongingness of the input to the corresponding label.Thus,the label index of the non-zero entries of the B gives the target labels associated with the input samples.Upon estimating the target labels,the performance metrics of the classifier are evaluated.Thus,the proposed technique is capable of classifying all three types of classification problems.The overview of the proposed approach is summarized.
+8.2 Experimentation
+      
+
+
+Table 8.3: Datasets Specifications
+
+
+Classification type
+Dataset
+No.of Labels
+Label Introduction Pattern
+Feature dimension
+Single-label
+Binary
+Diabetes
+2
+2
+8
+
+
+Ionosphere
+2
+2
+34
+
+Multi-class
+Balance-scale
+3
+2+1
+4
+
+
+Satellite image
+6
+4+2
+36
+
+
+Digit 
+10
+7+3
+64
+Multi-label
+Scene
+6
+4+1+1
+294
+
+Yeast
+14
+10+1+3
+103
+
+Corel5k
+374
+368+2+1
++1+2
+499
+
+Medical
+45
+38+3+4
+1449
+
+
+
+8.3 Results and Discussions
+	This section summarizes the experimental results of the proposed universal classifier on the datasets specified in table.The proposed method is evaluated for consistency,performance and speed.
+8.3.1 Consistency
+      Consistency is one of the key virtues of any new technique developed.An algorithm that is inconsistent with results on different trials is unreliable.Cross-validation is one of the effective ways to evaluate the consistency of the method.A 10-fold cross validation is performed for each of the datasets.For single-label classification problems,the performance of the classifier is evaluated using the percentage of accuracy.For multi-label classification hamming loss is used as the performance metric.The results obtained are tabulated in Table 8.4.From the table,it can be seen that the proposed universal classifier is highly consistent for all datasets from binary,multi-class and multi-label classification.
+      
+      
+      
+      
+      
+Table 8.4: Consistency
+Single-label Classification
+Dataset
+Label introduction pattern
+Accuracy % (10-fcv)
+
+Diabetes
+2
+78.2 ± 3.2
+
+Ionosphere
+2
+96.4 ± 2.6
+
+Balance-scale
+2+1
+91.2 ± 1.27
+
+Satellite image
+4+2
+89.3 ± 1.61
+
+Digit
+7+3
+97.0 ± 1.057
+Multi-label Classification
+Dataset
+Label introduction pattern
+Hamming loss (10-fcv)
+
+Scene
+4+1+1
+0.139 ± 0.002 
+
+Yeast
+10+1+3
+0.198 ± 0.001
+
+Corel5k
+368+2+1+1+2
+0.009 ± 0.000
+
+Medical
+38+3+4
+0.023 ± 0.001
+
+8.3.2 Performance 
+      The performance of binary and multi-class classification can be evaluated using the testing accuracy and for multi-label classification it can be evaluated using hamming loss.The results are tabulated in Table 8.5.There is no progressive learning universal classifier available in the literature to perform direct comparison with the proposed method.
+Table 8.5: Performance Measure
+Single-label Classification
+Dataset
+Label introduction pattern
+Accuracy %
+
+Diabetes
+2
+78.2
+
+Ionosphere
+2
+96.4
+
+Balance-scale
+2+1
+90.7
+
+Satellite image
+4+2
+89.6
+
+Digit
+7+3
+97.1
+Multi-label Classification
+Dataset
+Label introduction pattern
+Hamming loss
+
+Scene
+4+1+1
+0.139
+
+Yeast
+10+1+3
+0.198
+
+Corel5k
+368+2+1+1+2
+0.010
+
+Medical
+38+3+4
+0.023
+      
+      Since,due to the presence of partial correctness problem,several metrics in addition to hamming loss is required for multi-label classification problem.Therefore,the metrics such as accuracy,precision,recall and F1 measure are evaluated for each case.The results obtained are given in Table 8.6.
+Table 8.6: Performance Metrics for Multi-label Case
+Dataset 
+Label introduction pattern 
+Hamming loss 
+Accuracy 
+Precision 
+Recall 
+F1 measure 
+Yeast
+10+1+3
+0.198
+0.492
+0.679
+0.578
+0.629
+Scene 
+4+1+1 
+0.139 
+0.569 
+0.584 
+0.699 
+0.636 
+Medical 
+38+3+4 
+0.023 
+0.585 
+0.622 
+0.739 
+0.675 
+Corel5k 
+368+2+1
++1+2 
+0.010 
+0.055 
+0.151 
+0.062 
+0.088 
+
+8.3.3 Execution Speed
+      The execution speed of the proposed classifier is evaluated in terms of training time and testing time.Execution speed of the classifier plays a vital role for streaming data applications.In order to perform real-time streaming data classification,the execution speed of the classifier should be less than the arrival rate of the streaming data.Therefore,a high speed classifier is essential for real-time streaming data applications.The proposed universal classifier exploits the inherent high-speed nature of the ELM.The training time and the testing time of the proposed universal algorithm for each dataset is given in Table 8.7.
+      
+      
+Table 8.7: Execution Speed
+
+Dataset
+Training Time (s)
+Testing Time (s)
+Single-label Classification
+Diabetes
+0.005
+0
+
+Ionosphere
+0.007
+0
+
+Iris
+0.002
+0
+
+Waveform
+0.012
+0.001
+
+Balance-scale
+0.009
+0
+Multi-label Classification
+Scene
+2.291
+0.080
+
+Yeast
+0.115
+0.012
+
+Corel5k
+5.396
+0.056
+
+Medical
+0.614
+0.027
+      
+      From the table,it is evident that the proposed classifier is capable of performing progressive learning of multiple new classes dynamically for binary,multi-class and multi-label classification problems.
+8.4 Summary
+      The progressive learning technique is integrated with the universal classifier to develop human-learning-inspired progressively learning universally generic classifier.  The resulting new classifier can be used for any type of classification problem and any number of dynamic class constraints.The newly developed classifier is developed based on the extreme learning machine framework,thereby exploiting its inherent high speed training and testing.The proposed classifier is evaluated and analyzed in terms of consistency,performance and speed.
+
+
+
+
+
+
+
+
+
+Chapter 9
+Conclusions and Future Directions
+9.1 Conclusions
+      This thesis aimed to achieve: 1.The development of a universal generic classifier that is capable of performing binary,multi-class and multi-label classification,2.Extreme learning machine based progressive learning technique for classification problems and 3.Integration of progressive learning technique to the universal classifier thereby resulting in a generic classifier.The progressive learning universal classifier which is inspired by the human learning process is capable of learning new classes dynamically and also capable of addressing binary,multi-class and multi-label classification problems.
+            The newly developed classifier based on the extreme learning machine exploits its inherent high-speed training and testing.Thus,the resulting new classifier can be used to classify any type of classification problem with dynamic class constraints with high speed and accuracy.
+9.2 Directions for Further Research
+      This section discusses some of the possible future research directions based on the current research work.
+      In this thesis,the progressive learning technique and the universal classifier are realized using ELM based algorithm.Any machine learning algorithm can be modified and adapted to achieve the progressive learning and universal classification.
+      Furthermore,the progressive learning universal classifier can be used to develop experiential learning algorithms based on David A.Kolb’s experiential learning theory [101].Experiential learning is an effective learning model which is demonstrated by the human learning process.It is the process of making meaning or retrieving information from new experience
+/data.By integrating the progressive learning technique with the experiential learning theory,the higher order cognitive functions specified by Kolb such as reflective observation,abstract conceptualization,active experimentation and concrete experience can be achieved for machine learning methods.
+
+
+
+
+
+
+
+
+
+
+
+
+Author’s Publications
+1.	R.Venkatesan,M.J.Er,“A novel progressive learning technique for multi-class classification”,Neurocomputing,vol.207,pp.310-321.
+2.	R.Venkatesan,M.J.Er,M.Dave,M.Prathama,S.Wu,“A novel online multi-label classifier for high-speed streaming data applications”,Evolving Systems,2016,pp.1-13.
+3.	R.Venkatesan,M.J.Er,S.Wu,M.Prathama,“A Novel Online Real-time Classifier for Multi-label Data Streams”,International Joint Conference on Neural Networks,Presented,To be published.
+4.	R Venkatesan,MJ Er,“Multi-label Classification Based on Extreme Learning Machines”,International Conference on Control,Automation,Robotics and Vision,619-624.
+5.	M.J.Er,R Venkatesan,N.Wang,“A High Speed Multi-label Classifier Based on Extreme Learning Machines”,International Conference on Extreme Learning Machines,vol.2,pp.437-454
+6.	M.J.Er,R.Venkatesan,N.Wang “An Online Universal Classifier for Binary,Multi-class and Multi-label Classification”,IEEE Conference on System,Man and Cybernetics,Accepted for presentation
+7.	M.J.Er,V.K.Yalavarathi,N.Wang,R.Venkatesan,“A Novel Incremental Class Learning Technique for Multi-class Classification”,Advances in Neural Networks,ISNN2016,pp.474-481.
+8.	M.Dave,S.Tapiawala,M.J.Er,R.Venkatesan,“A Novel Progressive Multi-label Classifier for Class-incremental Data”,IEEE Conference on System,Man and Cybernetics,Accepted for presentation
+9.	Y.Zhang,M.J.Er,R.Venkatesan,N.Wang,M.Pratama,“Sentiment Classification Using Comprehensive Attention Recurrent Models”,International Joint Conference on Neural Networks,Presented,To be published.
+10.	K.Lapa,J.Szczypta,R.Venkatesan,“Aspects of Structure and Parameters Selection of Control Systems Using Selected Multi-Population Algorithms”,Artificial Intelligence and Soft Computing,247-260.
+11.	S.Mandal,M.J.Er,Y.D.Wong,R.Venkatesan,“A Study of Experiential Learning Theory Using Fuzzy Inference System” Fuzz-IEEE,1-5.
+
+
+
+
+
+
+References
+
+[1]
+	A.P.L.F.de Carvalho and A.Freitas,"A Tutorial on Multi-label Classification Techniques," in Foundations of Computational Intelligence Volume 5.vol.205,A.Abraham,A.-E.Hassanien,and V.Snášel,Eds.,ed: Springer Berlin Heidelberg,2009,pp.177-195.
+[2]
+	M.L.Gatza,J.E.Lucas,W.T.Barry,J.W.Kim,Q.Wang,M.D.Crawford,et al.,"A pathway-based classification of human breast cancer," Proceedings of the National Academy of Sciences,vol.107,pp.6994-6999,2010.
+[3]
+	K.Polat,S.Güne?,and A.Arslan,"A cascade learning system for classification of diabetes disease: Generalized discriminant analysis and least square support vector machine," Expert systems with applications,vol.34,pp.482-487,2008.
+[4]
+	H.Shao,G.Li,G.Liu,and Y.Wang,"Symptom selection for multi-label data of inquiry diagnosis in traditional Chinese medicine," Science China Information Sciences,vol.56,pp.1-13,2013.
+[5]
+	Y.Taigman,M.Yang,M.A.Ranzato,and L.Wolf,"Deepface: Closing the gap to human-level performance in face verification," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition,2014,pp.1701-1708.
+[6]
+	Y.Song,A.Ko?cz,and C.L.Giles,"Better Naive Bayes classification for high?precision spam detection," Software: Practice and Experience,vol.39,pp.1003-1024,2009.
+[7]
+	K.Mohiuddin and J.Mao,"A comparative study of different classifiers for handprinted character recognition," Pattern Recognition in Practice IV,pp.437-448,2014.
+[8]
+	M.N.Ayyaz,I.Javed,and W.Mahmood,"Handwritten character recognition using multiclass svm classification with hybrid feature extraction," Pakistan Journal of Engineering & Applied Science,vol.10,pp.57-67,2012.
+[9]
+	B.P.Chacko,V.V.Krishnan,G.Raju,and P.B.Anto,"Handwritten character recognition using wavelet energy and extreme learning machine," International Journal of Machine Learning and Cybernetics,vol.3,pp.149-161,2012.
+[10]
+	Y.Song,M.Ben Salem,S.Hershkop,and S.J.Stolfo,"System level user behavior biometrics using Fisher features and Gaussian mixture models," in Security and Privacy Workshops (SPW),2013 IEEE,2013,pp.52-59.
+[11]
+	N.Srivastava,U.Agrawal,S.K.Roy,and U.Tiwary,"Human identification using Linear Multiclass SVM and Eye Movement biometrics," in Contemporary Computing (IC3),2015 Eighth International Conference on,2015,pp.365-369.
+[12]
+	E.Lughofer and O.Buchtala,"Reliable all-pairs evolving fuzzy classifiers," Fuzzy Systems,IEEE Transactions on,vol.21,pp.625-641,2013.
+[13]	R.Polikar,L.Upda,S.S.Upda,and V.Honavar,"Learn
+++: An incremental learning algorithm for supervised neural networks," Systems,Man,and Cybernetics,Part C: Applications and Reviews,IEEE Transactions on,vol.31,pp.497-508,2001.
+[14]
+	J.A.Iglesias,P.Angelov,A.Ledezma,and A.Sanchis,"Evolving classification of agents’ behaviors: a general approach," Evolving Systems,vol.1,pp.161-171,2010.
+[15]
+	A.Bouchachia,"An evolving classification cascade with self-learning," Evolving Systems,vol.1,pp.143-160,2010.
+[16]
+	P.Angelov,E.Lughofer,and X.Zhou,"Evolving fuzzy classifiers using different model architectures," Fuzzy Sets and Systems,vol.159,pp.3160-3182,2008.
+[17]
+	A.Lemos,W.Caminhas,and F.Gomide,"Adaptive fault detection and diagnosis using an evolving fuzzy classifier," Information Sciences,vol.220,pp.64-85,2013.
+[18]
+	C.Xydeas,P.Angelov,S.-Y.Chiao,and M.Reoullas,"Advances in classification of EEG signals via evolving fuzzy classifiers and dependant multiple HMMs," Computers in biology and medicine,vol.36,pp.1064-1083,2006.
+[19]
+	M.-L.Zhang and Z.-H.Zhou,"ML-KNN: A lazy learning approach to multi-label learning," Pattern Recognition,vol.40,pp.2038-2048,7
+// 2007.
+[20]
+	T.Gonçalves and P.Quaresma,"A Preliminary Approach to the Multilabel Classification Problem of Portuguese Juridical Documents," in Progress in Artificial Intelligence.vol.2902,F.Pires and S.Abreu,Eds.,ed: Springer Berlin Heidelberg,2003,pp.435-444.
+[21]
+	T.Joachims,"Text categorization with Support Vector Machines: Learning with many relevant features," in Machine Learning: ECML-98.vol.1398,C.Nédellec and C.Rouveirol,Eds.,ed: Springer Berlin Heidelberg,1998,pp.137-142.
+[22]
+	X.Luo and A.N.Zincir-Heywood,"Evaluation of Two Systems on Multi-class Multi-label Document Classification," in Foundations of Intelligent Systems.vol.3488,M.-S.Hacid,N.Murray,Z.Ra?,and S.Tsumoto,Eds.,ed: Springer Berlin Heidelberg,2005,pp.161-169.
+[23]
+	D.Tikk and G.Biró,"Experiments with multi-label text classifier on the Reuters collection," in Proceedings of the international conference on computational cybernetics (ICCC 03),2003,pp.33-38.
+[24]
+	K.Yu,S.Yu,and V.Tresp,"Multi-label informed latent semantic indexing," presented at the Proceedings of the 28th annual international ACM SIGIR conference on Research and development in information retrieval,Salvador,Brazil,2005.
+[25]
+	A.Elisseeff and J.Weston,"A kernel method for multi-labelled classification," in Advances in neural information processing systems,2001,pp.681-687.
+[26]
+	X.Wang,W.Zhang,Q.Zhang,and G.-Z.Li,"MultiP-SChlo: multi-label protein subchloroplast localization prediction with Chou’s pseudo amino acid composition and a novel multi-label classifier," Bioinformatics,vol.31,pp.2639-2645,2015.
+[27]
+	A.Karali and V.Pirnat,"Significance level based multiple tree classification," Informatica,vol.15,
+// 1991.
+[28]
+	M.Boutell,X.Shen,J.Luo,and C.Brown,"Multi-label semantic scene classification," technical report,dept.comp.sci.u.rochester2003.
+[29]
+	X.Shen,M.Boutell,J.Luo,and C.Brown,"Multilabel machine learning and its application to semantic scene classification," in Electronic Imaging,2003,pp.188-199.
+[30]
+	W.Indyk,T.Kajdanowicz,and P.Kazienko,"Relational large scale multi-label classification method for video categorization," Multimedia Tools and Applications,vol.65,pp.63-74,2013.
+[31]
+	B.Zhu and C.K.Poon,"Efficient Approximation Algorithms for Multi-label Map Labeling," in Algorithms and Computation.vol.1741,ed: Springer Berlin Heidelberg,1999,pp.143-152.
+[32]
+	G.Tsoumakas,I.Katakis,and I.Vlahavas,"Mining Multi-label Data," in Data Mining and Knowledge Discovery Handbook,O.Maimon and L.Rokach,Eds.,ed: Springer US,2010,pp.667-685.
+[33]
+	Z.Min-Ling and Z.Zhi-Hua,"A k-nearest neighbor based algorithm for multi-label classification," in Granular Computing,2005 IEEE International Conference on,2005,pp.718-721 Vol.2.
+[34]
+	D.E.Rumelhart,G.E.Hinton,and R.J.Williams,"Learning representations by back-propagating errors," Cognitive modeling,vol.5,p.1,1988.
+[35]
+	M.T.Hagan and M.B.Menhaj,"Training feedforward networks with the Marquardt algorithm," IEEE transactions on Neural Networks,vol.5,pp.989-993,1994.
+[36]
+	B.M.Wilamowski and H.Yu,"Neural network learning without backpropagation," IEEE Transactions on Neural Networks,vol.21,pp.1793-1803,2010.
+[37]
+	S.Chen,C.F.Cowan,and P.M.Grant,"Orthogonal least squares learning algorithm for radial basis function networks," IEEE Transactions on neural networks,vol.2,pp.302-309,1991.
+[38]
+	K.Li,J.-X.Peng,and G.W.Irwin,"A fast nonlinear model identification method," IEEE Transactions on Automatic Control,vol.50,pp.1211-1216,2005.
+[39]
+	J.Branke,"Evolutionary algorithms for neural network design and training," in In Proceedings of the First Nordic Workshop on Genetic Algorithms and its Applications,1995.
+[40]
+	X.Yao,"A review of evolutionary artificial neural networks," International journal of intelligent systems,vol.8,pp.539-567,1993.
+[41]
+	B.Li,J.Wang,Y.Li,and Y.Song,"An improved on-line sequential learning algorithm for extreme learning machine," Advances in Neural Networks–ISNN 2007,pp.1087-1093,2007.
+[42]
+	G.-B.Huang,Q.-Y.Zhu,and C.-K.Siew,"Extreme learning machine: Theory and applications," Neurocomputing,vol.70,pp.489-501,12
+// 2006.
+[43]
+	D.E.Rumelhart,G.E.Hinton,and R.J.Williams,"Learning internal representations by error propagation," DTIC Document1985.
+[44]
+	S.Ferrari and R.F.Stengel,"Smooth function approximation using neural networks," IEEE Transactions on Neural Networks,vol.16,pp.24-38,2005.
+[45]
+	G.-B.Huang,Y.-Q.Chen,and H.A.Babri,"Classification ability of single hidden layer feedforward neural networks," IEEE Transactions on Neural Networks,vol.11,pp.799-801,2000.
+[46]
+	G.-B.Huang,D.Wang,and Y.Lan,"Extreme learning machines: a survey," International Journal of Machine Learning and Cybernetics,vol.2,pp.107-122,2011
+/06/01 2011.
+[47]
+	G.Bo and H.Xianwu,"SVM multi-class classification," Journal of Data Acquisition & Processing,vol.21,pp.334-339,2006.
+[48]
+	M.-L.Zhang and Z.-H.Zhou,"A review on multi-label learning algorithms," IEEE transactions on knowledge and data engineering,vol.26,pp.1819-1837,2014.
+[49]
+	M.Sahare and H.Gupta,"A review of multi-class classification for imbalanced data," International Journal of Advanced Computer Research,vol.2,pp.160-164,2012.
+[50]
+	Z.-H.Zhou,M.-L.Zhang,S.-J.Huang,and Y.-F.Li,"Multi-instance multi-label learning," Artificial Intelligence,vol.176,pp.2291-2320,2012.
+[51]
+	N.-Y.Liang,G.-B.Huang,P.Saratchandran,and N.Sundararajan,"A fast and accurate online sequential learning algorithm for feedforward networks," Neural Networks,IEEE Transactions on,vol.17,pp.1411-1423,2006.
+[52]
+	G.-B.Huang,Q.-Y.Zhu,and C.-K.Siew,"Extreme learning machine: a new learning scheme of feedforward neural networks," in Neural Networks,2004.Proceedings.2004 IEEE International Joint Conference on,2004,pp.985-990.
+[53]
+	G.-B.Huang,L.Chen,and C.K.Siew,"Universal approximation using incremental constructive feedforward networks with random hidden nodes," IEEE Transactions on Neural Networks,vol.17,pp.879-892,2006.
+[54]
+	Y.Wang,F.Cao,and Y.Yuan,"A study on effectiveness of extreme learning machine," Neurocomputing,vol.74,pp.2483-2490,2011.
+[55]
+	Q.-Y.Zhu,A.K.Qin,P.N.Suganthan,and G.-B.Huang,"Evolutionary extreme learning machine," Pattern recognition,vol.38,pp.1759-1763,2005.
+[56]
+	M.-B.Li,G.-B.Huang,P.Saratchandran,and N.Sundararajan,"Fully complex extreme learning machine," Neurocomputing,vol.68,pp.306-314,2005.
+[57]
+	G.-B.Huang,P.Saratchandran,and N.Sundararajan,"An efficient sequential learning algorithm for growing and pruning RBF (GAP-RBF) networks," IEEE Transactions on Systems,Man,and Cybernetics,Part B (Cybernetics),vol.34,pp.2284-2292,2004.
+[58]
+	G.-B.Huang,P.Saratchandran,and N.Sundararajan,"A generalized growing and pruning RBF (GGAP-RBF) neural network for function approximation," IEEE Transactions on Neural Networks,vol.16,pp.57-67,2005.
+[59]
+	M.Pratama,S.Anavatti,and J.Lu,"Recurrent Classifier based on An Incremental Meta-Cognitive-based Scaffolding Algorithm," Fuzzy Systems,IEEE Transactions on,vol.PP,pp.1-1,2015.
+[60]
+	M.Pratama,J.Lu,and G.Zhang,"Evolving Type-2 Fuzzy Classifier," Fuzzy Systems,IEEE Transactions on,vol.PP,pp.1-1,2015.
+[61]
+	P.Angelov,Autonomous Learning Systems: From Data Streams to Knowledge in Real-time: John Wiley & Sons,2012.
+[62]	J.Gama,Knowledge discovery from data streams: CRC Press,2010.
+[63]
+	N.Kasabov,Evolving connectionist systems: the knowledge engineering approach: Springer Science & Business Media,2007.
+[64]
+	M.Sayed-Mouchaweh and E.Lughofer,Learning in non-stationary environments: methods and applications: Springer Science & Business Media,2012.
+[65]
+	M.Pratama,S.G.Anavatti,J.Meng,and E.D.Lughofer,"pClass: An Effective Classifier for Streaming Examples," Fuzzy Systems,IEEE Transactions on,vol.23,pp.369-386,2015.
+[66]
+	M.Pratama,J.Lu,S.Anavatti,E.Lughofer,and C.-P.Lim,"An incremental meta-cognitive-based scaffolding fuzzy neural network," Neurocomputing,vol.In Press,2015.
+[67]
+	H.-J.Rong,G.-B.Huang,N.Sundararajan,and P.Saratchandran,"Online sequential fuzzy extreme learning machine for function approximation and classification problems," IEEE Transactions on Systems,Man,and Cybernetics,Part B (Cybernetics),vol.39,pp.1067-1072,2009.
+[68]
+	M.S.Sorower,"A literature survey on algorithms for multi-label learning," Oregon State University,Corvallis,2010.
+[69]
+	G.Tsoumakas and I.Katakis,"Multi-label classification: An overview," Dept.of Informatics,Aristotle University of Thessaloniki,Greece,2006.
+[70]
+	G.Madjarov,D.Kocev,D.Gjorgjevikj,and S.Džeroski,"An extensive experimental comparison of methods for multi-label learning," Pattern Recognition,vol.45,pp.3084-3104,9
+// 2012.
+[71]
+	J.R.Sato,M.Q.Hoexter,X.F.Castellanos,and L.A.Rohde,"Abnormal brain connectivity patterns in adults with ADHD: a coherence study," BioMed Research International,vol.2014,2014.
+[72]
+	H.Abdulsalam,D.B.Skillicorn,and P.Martin,"Classifying evolving data streams using dynamic streaming random forests," in Database and Expert Systems Applications,2008,pp.643-651.
+[73]
+	J.Read,A.Bifet,G.Holmes,and B.Pfahringer,"Streaming Multi-label Classification," in WAPA,2011,pp.19-25.
+[74]
+	P.Domingos and G.Hulten,"Mining high-speed data streams," in Proceedings of the sixth ACM SIGKDD international conference on Knowledge discovery and data mining,2000,pp.71-80.
+[75]
+	E.Spyromitros-Xioufis,"Dealing with concept drift and class imbalance in multi-label stream classification," Department of Computer Science,Aristotle University of Thessaloniki,2011.
+[76]
+	X.-S.Hua and G.-J.Qi,"Online multi-label active learning for large-scale multimedia annotation," TechReport MSR-TR-2008-1032008.
+[77]
+	Y.S.Crammer,"Online learning of complex categorical problems," Hebrew University of Jerusalem,2004.
+[78]
+	X.Zhang,T.Graepel,and R.Herbrich,"Bayesian online learning for multi-label and multi-variate performance measures," in International Conference on Artificial Intelligence and Statistics,2010,pp.956-963.
+[79]
+	S.Ding,H.Zhao,Y.Zhang,X.Xu,and R.Nie,"Extreme learning machine: algorithm,theory and applications," Artificial Intelligence Review,vol.44,pp.103-115,2015
+/06/01 2015.
+[80]
+	G.-B.Huang,"What are extreme learning machines? Filling the gap between Frank Rosenblatt’s dream and John von Neumann’s puzzle," Cognitive Computation,vol.7,pp.263-278,2015.
+[81]
+	W.Ning,E.Meng Joo,and H.Min,"Parsimonious Extreme Learning Machine Using Recursive Orthogonal Least Squares," Neural Networks and Learning Systems,IEEE Transactions on,vol.25,pp.1828-1841,2014.
+[82]
+	W.Ning,E.Meng Joo,and H.Min,"Generalized Single-Hidden Layer Feedforward Networks for Regression Problems," Neural Networks and Learning Systems,IEEE Transactions on,vol.26,pp.1161-1176,2015.
+[83]
+	N.Wang,M.Han,N.Dong,and M.J.Er,"Constructive multi-output extreme learning machine with application to large tanker motion dynamics identification," Neurocomputing,vol.128,pp.59-72,3
+/27/ 2014.
+[84]
+	N.Wang,J.C.Sun,M.J.Er,and Y.C.Liu,"A Novel Extreme Learning Control Framework of Unmanned Surface Vehicles," Cybernetics,IEEE Transactions on,vol.PP,pp.1-1,2015.
+[85]
+	W.F.Schmidt,M.A.Kraaijveld,and R.P.Duin,"Feedforward neural networks with random weights," in Pattern Recognition,1992.Vol.II.Conference B: Pattern Recognition Methodology and Systems,Proceedings.,11th IAPR International Conference on,1992,pp.1-4.
+[86]
+	Y.H.Pao and Y.Takefji,"Functional-link net computing," IEEE Computer Journal,vol.25,pp.76-79,1992.
+[87]
+	G.Huang,G.-B.Huang,S.Song,and K.You,"Trends in extreme learning machines: a review," Neural Networks,vol.61,pp.32-48,2015.
+[88]
+	M.R.Daliri,"A hybrid automatic system for the diagnosis of lung cancer based on genetic algorithm and fuzzy extreme learning machines," Journal of medical systems,vol.36,pp.1001-1005,2012.
+[89]
+	W.B.Zhang and H.B.Ji,"Fuzzy extreme learning machine for classification," Electronics Letters,vol.49,pp.448-450,2013.
+[90]
+	E.Avci and R.Coteli,"A new automatic target recognition system based on wavelet extreme learning machine," Expert Systems with Applications,vol.39,pp.12340-12348,2012.
+[91]
+	V.Malathi,N.Marimuthu,S.Baskar,and K.Ramar,"Application of extreme learning machine for series compensated transmission line protection," Engineering Applications of Artificial Intelligence,vol.24,pp.880-887,2011.
+[92]
+	G.-B.Huang,H.Zhou,X.Ding,and R.Zhang,"Extreme learning machine for regression and multiclass classification," IEEE Transactions on Systems,Man,and Cybernetics,Part B (Cybernetics),vol.42,pp.513-529,2012.
+[93]
+	W.Zong,G.-B.Huang,and Y.Chen,"Weighted extreme learning machine for imbalance learning," Neurocomputing,vol.101,pp.229-242,2
+/4/ 2013.
+[94]
+	Z.Man,K.Lee,D.Wang,Z.Cao,and C.Miao,"A new robust training algorithm for a class of single-hidden layer feedforward neural networks," Neurocomputing,vol.74,pp.2491-2501,2011.
+[95]
+	G.-B.Huang and L.Chen,"Convex incremental extreme learning machine," Neurocomputing,vol.70,pp.3056-3062,2007.
+[96]
+	J.Cao,Z.Lin,G.-B.Huang,and N.Liu,"Voting based extreme learning machine," Information Sciences,vol.185,pp.66-77,2012.
+[97]
+	Z.-H.You,Y.-K.Lei,L.Zhu,J.Xia,and B.Wang,"Prediction of protein-protein interactions from amino acid sequences with ensemble extreme learning machines and principal component analysis," BMC bioinformatics,vol.14,p.1,2013.
+[98]
+	J.-h.Zhai,H.-y.Xu,and X.-z.Wang,"Dynamic ensemble extreme learning machine based on sample entropy," Soft Computing,vol.16,pp.1493-1502,2012.
+[99]
+	F.C.Bernardini,R.B.da Silva,E.M.Meza,and R.das Ostras–RJ–Brazil,"Analyzing the influence of cardinality and density characteristics on multi-label learning," Proc.X Encontro Nacional de Inteligência Artificial e Computacional–ENIAC 2013,2013.
+[100]
+	P.Jarvis,Towards a comprehensive theory of human learning vol.1: Routledge,2012.
+[101]
+	A.Y.Kolb and D.A.Kolb,"Experiential learning theory," in Encyclopedia of the Sciences of Learning,ed: Springer,2012,pp.1215-1219.
+
+
+78
+
+128
+
+173
+
