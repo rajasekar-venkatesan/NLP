@@ -305,7 +305,7 @@ def evaluate(encoder, decoder, sentence, max_len=MAX_LEN):
             decoded_words.append(tgt_lang.i2w_map[ni])
         decoder_input = Variable(torch.LongTensor([[ni]]))
         decoder_input = decoder_input.cuda() if use_cuda else decoder_input
-    return decoded_words
+    return decoded_words, decoder_attentions[:di+1]
 
 def evaluate_randomly(encoder, decoder, n=10):
     for i in range(n):
